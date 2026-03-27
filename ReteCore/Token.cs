@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReteCore
+{
+    public class Token
+    {
+        // Stores facts by their assigned names
+        public Dictionary<string, object> NamedFacts { get; } = new Dictionary<string, object>();
+
+        // Initial token for the start of a rule
+        public Token(string name, object initialFact)
+        {
+            //NamedFacts = new Dictionary<string, object> { { name, initialFact } };
+            NamedFacts[name] = initialFact;
+        }
+
+        // Creates a new token by extending a parent with a new named fact
+        public Token(Token parent, string nextName, object newFact)
+        {
+            /*
+            var nextFacts = new Dictionary<string, object>(parent.NamedFacts) {
+            { nextName, newFact }
+            };
+            NamedFacts = nextFacts;
+            */
+            foreach (var facts in parent.NamedFacts)
+            {
+                NamedFacts[facts.Key] = facts.Value;
+            }
+            NamedFacts[nextName] = newFact;
+        }
+
+        // Type-safe accessor by name
+        public T Get<T>(string name)
+        {
+            if (NamedFacts.TryGetValue(name, out var fact) && fact is T typedFact)
+            {
+                return typedFact;
+            }
+            throw new KeyNotFoundException($"Fact named '{name}' of type {typeof(T).Name} was not found.");
+        }
+    }
+
+    public class Cell : INotifyPropertyChanged
+    {
+        private int _value;
+        public String Id { get; set; }
+        public int Value 
+        {
+            get { return _value; }
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
+                }
+            }
+        }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public override string ToString() => $"[ID:{Id}, Val:{Value}]";
+    }
+
+}
