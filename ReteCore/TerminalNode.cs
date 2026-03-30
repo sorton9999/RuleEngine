@@ -12,6 +12,7 @@ namespace ReteCore
         private readonly Action<Token> _action;
         private readonly Agenda _agenda;
         private readonly int _salience;
+        private readonly HashSet<int> _firedTokens = new();
 
         public TerminalNode(string name, Action<Token> action, Agenda agenda, int salience = 0)
         {
@@ -27,12 +28,20 @@ namespace ReteCore
         {
             if (fact is Token finalMatch)
             {
-                _agenda.Add(new Activation(_ruleName, _action, finalMatch, _salience));
+                if (!_firedTokens.Contains(finalMatch.GetHashCode()))
+                {
+                    _agenda.Add(new Activation(_ruleName, _action, finalMatch, _salience));
+                    _firedTokens.Add(finalMatch.GetHashCode());
+                }
             }
         }
 
         public void Retract(object fact)
         {
+            if (fact is Token token)
+            {
+                _firedTokens.Remove(token.GetHashCode());
+            }
             // Find and remove any activations in the agenda that contain this fact
             _agenda.RemoveByFact(fact);
             Console.WriteLine($"[RETRACT] Pending activation for rule '{_ruleName}' cancelled.");
@@ -41,7 +50,8 @@ namespace ReteCore
         public void Refresh(object fact, string propertyName)
         {
             // Remove existing activations for this fact from the Agenda
-            _agenda.RemoveByFact(fact);
+            Retract(fact);
+            Assert(fact);
         }
         public void DebugPrint(object fact, int level = 0)
         {

@@ -22,6 +22,8 @@ namespace ReteProgram
             _ruleName = name;
         }
 
+        public string RuleName { get { return _ruleName; } }
+
         public RuleBuilder<TInitial> Match<T>(string name, string? debugLabel = null)
         {
             if (debugLabel != null)

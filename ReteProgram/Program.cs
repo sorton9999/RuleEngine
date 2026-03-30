@@ -200,12 +200,8 @@ engine4.Begin("AlertUrgent")
 engine4.Assert(new CriticalCell { Id = "M", Value = 150, Status = "Normal" });
 
 // RECURSIVE FIRE LOOP
-Console.WriteLine("Starting Fire Loop...");
-//while (engine4.Agenda.HasActivations)
-//{
-    engine4.FireAll();
-//}
-Console.WriteLine("Loop Finished.");
+engine4.FireAll();
+
 
 var engine5 = new ReteEngine();
 
@@ -215,9 +211,11 @@ engine5.Begin("MatchCustomer")
     (t, c) => c.Status != "Urgent",
     (t, c) => c.Value >= 100
     )
-    .Then(t => Console.WriteLine("This should be marked Urgent!"));
+    .Then(t => Console.WriteLine($"[{t.Fact}]: This should be marked Urgent!"));
 
 engine5.Assert(new CriticalCell { Id = "M", Status = "Urgent", Value = 100 });
+engine5.Assert(new CriticalCell { Id = "M", Status = "Urgent", Value = 90 });
+engine5.Assert(new CriticalCell { Id = "M", Status = "Normal", Value = 110 });
 
 engine5.FireAll();
 

@@ -10,6 +10,7 @@ namespace ReteCore
 {
     public class Token : IEquatable<Token>
     {
+        private object _fact;
         // Stores facts by their assigned names
         public Dictionary<string, object> NamedFacts { get; } = new Dictionary<string, object>();
 
@@ -17,6 +18,7 @@ namespace ReteCore
         public Token(string name, object initialFact)
         {
             Parent = null;
+            _fact = initialFact;
             NamedFacts[name] = initialFact;
         }
 
@@ -24,6 +26,7 @@ namespace ReteCore
         public Token(Token parent, string nextName, object newFact)
         {
             Parent = parent;
+            _fact = newFact;
             foreach (var facts in parent.NamedFacts)
             {
                 NamedFacts[facts.Key] = facts.Value;
@@ -33,6 +36,7 @@ namespace ReteCore
 
         // Store its parent token
         public Token Parent { get; set; }
+        public object Fact { get { return _fact; } }
 
         // Type-safe accessor by name
         public T Get<T>(string name)
@@ -57,6 +61,11 @@ namespace ReteCore
             return base.Equals(obj);
         }
         #endregion
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Parent, _fact);
+        }
         public static bool operator ==(Token? left, Token? right) => Equals(left, right);
         public static bool operator !=(Token? left, Token? right) => !Equals(left, right);
 

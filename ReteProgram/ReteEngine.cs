@@ -48,7 +48,6 @@ namespace ReteProgram
         public void FireAll()
         {
             while (_agenda.HasActivations) { _agenda.FireAll(); }
-            //_agenda.FireAll();
         }
 
         // Helper to build a "Conflict" rule easily
@@ -124,10 +123,6 @@ namespace ReteProgram
             {
                 foreach (var child in _children)
                 {
-                    //if (child is ObjectTypeNode<object> typeNode)
-                    //{
-                    //    typeNode.Refresh(fact, propertyName);
-                    //}
                     child.Refresh(fact, propertyName);
                 }
             }
@@ -150,17 +145,6 @@ namespace ReteProgram
                 {
                     foreach (var child in _children)
                     {
-                        /*
-                        if (child is AlphaConditionNode<T> alphaNode)
-                        {
-                            alphaNode.Refresh(typedFact, propertyName);
-                        }
-                        else
-                        {
-                            //child.Assert(typedFact);
-                            child.Refresh(typedFact, propertyName);
-                        }
-                        */
                         child.Refresh(fact, propertyName);
                     }
                 }
