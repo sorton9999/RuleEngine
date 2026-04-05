@@ -1,5 +1,6 @@
 ﻿using ReteCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -158,12 +159,14 @@ namespace ReteProgram
             }
         }
 
-        public class TraceNode : IReteNode
+        public class TraceNode : IReteNode, ILatentMemory
         {
             private readonly string _label;
             private readonly List<IReteNode> _successors = new();
+            private Token token = new Token("Dummy Token", null);
 
             public TraceNode(string label) => _label = label;
+            public IEnumerable<Token> Tokens { get { return new List<Token> () { token }; } }
             public void AddSuccessor(IReteNode node) => _successors.Add(node);
 
             public void Assert(object fact)

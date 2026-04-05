@@ -113,50 +113,6 @@ public class JoinNode
 
 }
 
-// The Beta Node joins a Token (left) with a Fact (right)
-/*
-public class JoinNode : IReteNode
-{
-    private readonly List<Token> _leftMemory = new();  // Matches from "higher" in the tree
-    private readonly List<object> _rightMemory = new(); // Facts from an Alpha Node
-    private readonly Func<Token, object, bool> _joinCondition;
-    private readonly List<Action<Token>> _actions = new();
-
-    public JoinNode(Func<Token, object, bool> condition) => _joinCondition = condition;
-
-    public void AddAction(Action<Token> action) => _actions.Add(action);
-
-    // Called from the Left (Partial matches)
-    public void LeftAssert(Token token)
-    {
-        _leftMemory.Add(token);
-        foreach (var fact in _rightMemory)
-        {
-            Evaluate(token, fact);
-        }
-    }
-
-    // Called from the Right (Alpha Memory / Single facts)
-    public void Assert(object fact)
-    {
-        _rightMemory.Add(fact);
-        foreach (var token in _leftMemory)
-        {
-            Evaluate(token, fact);
-        }
-    }
-
-    private void Evaluate(Token token, object fact)
-    {
-        if (_joinCondition(token, fact))
-        {
-            var newToken = new Token(token, fact);
-            Console.WriteLine("Beta Match: Join successful!");
-            foreach (var action in _actions) action(newToken);
-        }
-    }
-}
-*/
 
 public class TerminalNode : IReteNode
 {
