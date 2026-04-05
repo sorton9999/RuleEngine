@@ -1,0 +1,172 @@
+\doxysection{Rete\+Core.\+Terminal\+Node Class Reference}
+\hypertarget{class_rete_core_1_1_terminal_node}{}\label{class_rete_core_1_1_terminal_node}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+
+
+Represents a terminal node in a Rete network that schedules rule activations when matching facts are asserted.  
+
+
+Inheritance diagram for Rete\+Core.\+Terminal\+Node:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_rete_core_1_1_terminal_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a538c04e19a45a69c311a5d0139646c74}{Terminal\+Node}} (string name, Action$<$ \doxymbox{\hyperlink{class_rete_core_1_1_token}{Token}} $>$ action, \doxymbox{\hyperlink{class_rete_core_1_1_agenda}{Agenda}} agenda, int salience=0)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \doxylink{class_rete_core_1_1_terminal_node}{Terminal\+Node} class with the specified rule name, action, agenda, and optional salience. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a20eaf16cea219318645e06e278f46ee0}{Add\+Successor}} (\doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}} node)
+\begin{DoxyCompactList}\small\item\em Prevents adding a successor node to this terminal node. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_adca40726f6b783b65ebd08486d756422}{Assert}} (object fact)
+\begin{DoxyCompactList}\small\item\em Asserts a fact into the rule engine, creating an activation if the fact has not already been processed. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a9e2e20cf83f802d84591c6782dd13e3d}{Retract}} (object fact)
+\begin{DoxyCompactList}\small\item\em Retracts the specified fact from the rule engine, removing any associated activations or tokens. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a06635491c40a3a5d508248845217a5bc}{Refresh}} (object fact, string property\+Name)
+\begin{DoxyCompactList}\small\item\em Updates the specified fact in the working memory, re-\/evaluating any rules that depend on the given property. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a32a9c105601776380db6e56665c96cde}{Debug\+Print}} (object fact, int level=0)
+\begin{DoxyCompactList}\small\item\em Writes a formatted debug message to the console that includes the rule name and the specified fact, indented according to the given level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a terminal node in a Rete network that schedules rule activations when matching facts are asserted. 
+
+A \doxylink{class_rete_core_1_1_terminal_node}{Terminal\+Node} is the endpoint of a Rete rule network. When a fact matching the rule conditions reaches this node, it creates an activation and adds it to the agenda for later execution. \doxylink{class_rete_core_1_1_terminal_node}{Terminal\+Node} instances are typically associated with a specific rule and action. No successor nodes should be added after a \doxylink{class_rete_core_1_1_terminal_node}{Terminal\+Node}.
+
+\label{doc-constructors}
+\Hypertarget{class_rete_core_1_1_terminal_node_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_rete_core_1_1_terminal_node_a538c04e19a45a69c311a5d0139646c74}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!TerminalNode@{TerminalNode}}
+\index{TerminalNode@{TerminalNode}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{TerminalNode()}{TerminalNode()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_a538c04e19a45a69c311a5d0139646c74} 
+Rete\+Core.\+Terminal\+Node.\+Terminal\+Node (\begin{DoxyParamCaption}\item[{string}]{name}{, }\item[{Action$<$ \doxymbox{\hyperlink{class_rete_core_1_1_token}{Token}} $>$}]{action}{, }\item[{\doxymbox{\hyperlink{class_rete_core_1_1_agenda}{Agenda}}}]{agenda}{, }\item[{int}]{salience}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \doxylink{class_rete_core_1_1_terminal_node}{Terminal\+Node} class with the specified rule name, action, agenda, and optional salience. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the rule associated with this terminal node. Cannot be null.\\
+\hline
+{\em action} & The action to execute when the terminal node is activated. Cannot be null.\\
+\hline
+{\em agenda} & The agenda that manages the execution order of rules. Cannot be null.\\
+\hline
+{\em salience} & The priority of the rule. Higher values indicate higher priority. The default is 0.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_rete_core_1_1_terminal_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_rete_core_1_1_terminal_node_a20eaf16cea219318645e06e278f46ee0}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!AddSuccessor@{AddSuccessor}}
+\index{AddSuccessor@{AddSuccessor}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{AddSuccessor()}{AddSuccessor()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_a20eaf16cea219318645e06e278f46ee0} 
+void Rete\+Core.\+Terminal\+Node.\+Add\+Successor (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}}}]{node}{}\end{DoxyParamCaption})}
+
+
+
+Prevents adding a successor node to this terminal node. 
+
+Terminal nodes do not support successors. Calling this method has no effect other than logging a message.
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The node that would be added as a successor. This parameter is ignored.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_rete_core_1_1_terminal_node_adca40726f6b783b65ebd08486d756422}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!Assert@{Assert}}
+\index{Assert@{Assert}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{Assert()}{Assert()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_adca40726f6b783b65ebd08486d756422} 
+void Rete\+Core.\+Terminal\+Node.\+Assert (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Asserts a fact into the rule engine, creating an activation if the fact has not already been processed. 
+
+If the specified fact is a \doxylink{class_rete_core_1_1_token}{Token} that has not previously triggered an activation for this rule, an activation is added to the agenda. Duplicate assertions of the same \doxylink{class_rete_core_1_1_token}{Token} are ignored. This method is typically used to introduce new facts for rule evaluation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact to assert. Must be a non-\/null object of type \doxylink{class_rete_core_1_1_token}{Token} to be considered for activation.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a05567f044dd13d4de35da0591191fca2}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_terminal_node_a32a9c105601776380db6e56665c96cde}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!DebugPrint@{DebugPrint}}
+\index{DebugPrint@{DebugPrint}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{DebugPrint()}{DebugPrint()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_a32a9c105601776380db6e56665c96cde} 
+void Rete\+Core.\+Terminal\+Node.\+Debug\+Print (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{int}]{level}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Writes a formatted debug message to the console that includes the rule name and the specified fact, indented according to the given level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to include in the debug output. This object is converted to a string using its To\+String method.\\
+\hline
+{\em level} & The indentation level for the output. Each level increases the indentation by two spaces. The default is 0.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_aaee4a1eb9365b5d13e8301fc3d1d9730}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_terminal_node_a06635491c40a3a5d508248845217a5bc}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!Refresh@{Refresh}}
+\index{Refresh@{Refresh}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{Refresh()}{Refresh()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_a06635491c40a3a5d508248845217a5bc} 
+void Rete\+Core.\+Terminal\+Node.\+Refresh (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{string}]{property\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Updates the specified fact in the working memory, re-\/evaluating any rules that depend on the given property. 
+
+Call this method after modifying a property of a fact to ensure that the rule engine reconsiders any rules affected by the change. This method removes and re-\/inserts the fact, triggering rule re-\/evaluation as appropriate.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to refresh in the working memory. Cannot be null.\\
+\hline
+{\em property\+Name} & The name of the property on the fact that has changed. Cannot be null or empty.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_ad9bdb84d1351f3db578f74bd067c09bc}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_terminal_node_a9e2e20cf83f802d84591c6782dd13e3d}\index{ReteCore.TerminalNode@{ReteCore.TerminalNode}!Retract@{Retract}}
+\index{Retract@{Retract}!ReteCore.TerminalNode@{ReteCore.TerminalNode}}
+\doxysubsubsection{\texorpdfstring{Retract()}{Retract()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_terminal_node_a9e2e20cf83f802d84591c6782dd13e3d} 
+void Rete\+Core.\+Terminal\+Node.\+Retract (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Retracts the specified fact from the rule engine, removing any associated activations or tokens. 
+
+If the specified fact is currently part of any pending activations or has previously fired tokens, those will be removed from the agenda and internal state. This operation cancels any pending rule activations related to the fact.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to retract. Cannot be null.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a451a325202ba1ccd36246273eea6a749}{Rete\+Core.\+IRete\+Node}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Rete\+Core/\+Terminal\+Node.\+cs\end{DoxyCompactItemize}

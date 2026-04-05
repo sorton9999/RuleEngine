@@ -1,0 +1,66 @@
+\doxysection{Rete\+Core.\+Agenda Class Reference}
+\hypertarget{class_rete_core_1_1_agenda}{}\label{class_rete_core_1_1_agenda}\index{ReteCore.Agenda@{ReteCore.Agenda}}
+
+
+The \doxylink{class_rete_core_1_1_agenda}{Agenda} class manages pending rule activations in a Rete-\/based rule engine. It maintains a list of activations that have been triggered but not yet executed.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_agenda_aa59da6c4634d7579e0d6bcbdcfba9781}{Add}} (\doxymbox{\hyperlink{class_rete_core_1_1_activation}{Activation}} a)
+\begin{DoxyCompactList}\small\item\em Adds a new activation to the agenda. This method is typically called when a rule\textquotesingle{}s conditions are satisfied, creating an activation that represents the pending execution of that rule. The activation is added to the list of pending activations, which will be processed later during the firing phase. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_agenda_a2b2890ae869d56d273db3ab542931e49}{Remove\+By\+Fact}} (object fact)
+\begin{DoxyCompactList}\small\item\em Removes any pending activations from the agenda that are associated with the specified fact. This is typically called when a fact is retracted from the working memory, ensuring that any rules that were triggered by that fact but have not yet fired are cancelled and will not execute based on outdated information. \end{DoxyCompactList}\item 
+\Hypertarget{class_rete_core_1_1_agenda_a6c19ab804499c8813af25859a2bf8810}\label{class_rete_core_1_1_agenda_a6c19ab804499c8813af25859a2bf8810} 
+void {\bfseries Fire\+All} ()
+\begin{DoxyCompactList}\small\item\em Fires all pending activations in the agenda, executing their associated actions in order of descending salience (priority). After firing, the activations are removed from the agenda. This method is typically called during the rule execution phase to process all activated rules based on their priority, ensuring that higher salience rules are executed before lower salience ones when multiple activations are present. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_rete_core_1_1_agenda_a3aa3a75318c9ecb9dddf03c3fa7ab14e}\label{class_rete_core_1_1_agenda_a3aa3a75318c9ecb9dddf03c3fa7ab14e} 
+bool {\bfseries Has\+Activations}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Does the agenda currently have any pending activations? This property returns true if there are one or more activations in the agenda, indicating that there are rules that have been triggered and are waiting to be fired. If this property returns false, it means that there are no pending activations and the agenda is currently empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_rete_core_1_1_agenda}{Agenda} class manages pending rule activations in a Rete-\/based rule engine. It maintains a list of activations that have been triggered but not yet executed. 
+
+\label{doc-func-members}
+\Hypertarget{class_rete_core_1_1_agenda_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_rete_core_1_1_agenda_aa59da6c4634d7579e0d6bcbdcfba9781}\index{ReteCore.Agenda@{ReteCore.Agenda}!Add@{Add}}
+\index{Add@{Add}!ReteCore.Agenda@{ReteCore.Agenda}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_agenda_aa59da6c4634d7579e0d6bcbdcfba9781} 
+void Rete\+Core.\+Agenda.\+Add (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_rete_core_1_1_activation}{Activation}}}]{a}{}\end{DoxyParamCaption})}
+
+
+
+Adds a new activation to the agenda. This method is typically called when a rule\textquotesingle{}s conditions are satisfied, creating an activation that represents the pending execution of that rule. The activation is added to the list of pending activations, which will be processed later during the firing phase. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The \doxylink{class_rete_core_1_1_activation}{Activation} object to add to the list of activations.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_rete_core_1_1_agenda_a2b2890ae869d56d273db3ab542931e49}\index{ReteCore.Agenda@{ReteCore.Agenda}!RemoveByFact@{RemoveByFact}}
+\index{RemoveByFact@{RemoveByFact}!ReteCore.Agenda@{ReteCore.Agenda}}
+\doxysubsubsection{\texorpdfstring{RemoveByFact()}{RemoveByFact()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_agenda_a2b2890ae869d56d273db3ab542931e49} 
+void Rete\+Core.\+Agenda.\+Remove\+By\+Fact (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Removes any pending activations from the agenda that are associated with the specified fact. This is typically called when a fact is retracted from the working memory, ensuring that any rules that were triggered by that fact but have not yet fired are cancelled and will not execute based on outdated information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to remove.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Rete\+Core/\+Agenda.\+cs\end{DoxyCompactItemize}

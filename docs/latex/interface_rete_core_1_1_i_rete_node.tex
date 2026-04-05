@@ -1,0 +1,117 @@
+\doxysection{Rete\+Core.\+IRete\+Node Interface Reference}
+\hypertarget{interface_rete_core_1_1_i_rete_node}{}\label{interface_rete_core_1_1_i_rete_node}\index{ReteCore.IReteNode@{ReteCore.IReteNode}}
+
+
+An interface representing a node in a Rete network, which is responsible for processing facts and propagating them through the network.  
+
+
+Inheritance diagram for Rete\+Core.\+IRete\+Node:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.000000cm]{interface_rete_core_1_1_i_rete_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a05567f044dd13d4de35da0591191fca2}{Assert}} (object fact)
+\begin{DoxyCompactList}\small\item\em Asserts a fact into the Rete node, which may trigger the propagation of the fact to successor nodes. The specific behavior of this method depends on the type of node (e.\+g., \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}, \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory}, etc.) and how it processes incoming facts. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might simply store the fact and propagate it to successors, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might combine it with existing tokens to create new matches. The Assert method is a fundamental part of how facts are introduced into the Rete network and how they flow through it to trigger rule activations. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a451a325202ba1ccd36246273eea6a749}{Retract}} (object fact)
+\begin{DoxyCompactList}\small\item\em Retracts a fact from the Rete node, which may trigger the removal of the fact from successor nodes. The specific behavior of this method depends on the type of node and how it manages its internal state. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might remove the fact from its collection and propagate the retraction to successors, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might remove any tokens that contain the retracted fact and propagate those changes. The Retract method is essential for maintaining the consistency of the Rete network as facts change over time, allowing it to correctly reflect the current state of knowledge and trigger or deactivate rules as needed. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_ad9bdb84d1351f3db578f74bd067c09bc}{Refresh}} (object fact, string property\+Name)
+\begin{DoxyCompactList}\small\item\em Refreshes a fact in the Rete node, which may trigger re-\/evaluation of the fact and its propagation to successor nodes if necessary. This method is typically called when a property of a fact changes, and it allows the Rete network to update its state based on the new information. The specific behavior of this method depends on the type of node and how it manages its internal state. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might check if the changed property is relevant to its conditions and re-\/evaluate the fact accordingly, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might need to re-\/evaluate any tokens that contain the changed fact. The Refresh method is crucial for ensuring that the Rete network remains accurate and responsive to changes in facts over time. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_aaee4a1eb9365b5d13e8301fc3d1d9730}{Debug\+Print}} (object fact, int level=0)
+\begin{DoxyCompactList}\small\item\em Visualizes the current state of the Rete node for debugging purposes. This method can be implemented to print out the internal state of the node, such as the facts it currently holds, the tokens it has generated, or any other relevant information that would help a developer understand how the node is processing facts. The level parameter can be used to indicate the depth in the network or to control the amount of detail printed, allowing for a more structured and readable output when visualizing complex Rete networks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An interface representing a node in a Rete network, which is responsible for processing facts and propagating them through the network. 
+
+\label{doc-func-members}
+\Hypertarget{interface_rete_core_1_1_i_rete_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_rete_core_1_1_i_rete_node_a05567f044dd13d4de35da0591191fca2}\index{ReteCore.IReteNode@{ReteCore.IReteNode}!Assert@{Assert}}
+\index{Assert@{Assert}!ReteCore.IReteNode@{ReteCore.IReteNode}}
+\doxysubsubsection{\texorpdfstring{Assert()}{Assert()}}
+{\footnotesize\ttfamily \label{interface_rete_core_1_1_i_rete_node_a05567f044dd13d4de35da0591191fca2} 
+void Rete\+Core.\+IRete\+Node.\+Assert (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Asserts a fact into the Rete node, which may trigger the propagation of the fact to successor nodes. The specific behavior of this method depends on the type of node (e.\+g., \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}, \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory}, etc.) and how it processes incoming facts. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might simply store the fact and propagate it to successors, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might combine it with existing tokens to create new matches. The Assert method is a fundamental part of how facts are introduced into the Rete network and how they flow through it to trigger rule activations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \doxymbox{\hyperlink{class_rete_core_1_1_alpha_condition_node-1-g_a62e7c7df2def6f3225a5a699d8aa4047}{Rete\+Core.\+Alpha\+Condition\+Node$<$ T $>$}}, \doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory_a8576414ca96de5f4f893b57569da13c2}{Rete\+Core.\+Alpha\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_beta_memory_a1ca2ef72a0bb548f7b329b28f7b48129}{Rete\+Core.\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_composite_beta_memory_a367d2694a1ae270e5e1d386e2baa062c}{Rete\+Core.\+Composite\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_join_node_a7f26856211c5805cb0b4e03c68efa287}{Rete\+Core.\+Join\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_or_node_abe3e11c27a460a0f1ee4b8e6de33766b}{Rete\+Core.\+Or\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_adca40726f6b783b65ebd08486d756422}{Rete\+Core.\+Terminal\+Node}}, \doxymbox{\hyperlink{class_rete_program_1_1_alpha_to_beta_adapter_a0ce8eca5eb5872e7beb0abe461044af7}{Rete\+Program.\+Alpha\+To\+Beta\+Adapter}}, and \doxymbox{\hyperlink{class_rete_program_1_1_rete_engine_1_1_trace_node_af4076a281a3ed54b3f5bcbf45db537c5}{Rete\+Program.\+Rete\+Engine.\+Trace\+Node}}.
+
+\Hypertarget{interface_rete_core_1_1_i_rete_node_aaee4a1eb9365b5d13e8301fc3d1d9730}\index{ReteCore.IReteNode@{ReteCore.IReteNode}!DebugPrint@{DebugPrint}}
+\index{DebugPrint@{DebugPrint}!ReteCore.IReteNode@{ReteCore.IReteNode}}
+\doxysubsubsection{\texorpdfstring{DebugPrint()}{DebugPrint()}}
+{\footnotesize\ttfamily \label{interface_rete_core_1_1_i_rete_node_aaee4a1eb9365b5d13e8301fc3d1d9730} 
+void Rete\+Core.\+IRete\+Node.\+Debug\+Print (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{int}]{level}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Visualizes the current state of the Rete node for debugging purposes. This method can be implemented to print out the internal state of the node, such as the facts it currently holds, the tokens it has generated, or any other relevant information that would help a developer understand how the node is processing facts. The level parameter can be used to indicate the depth in the network or to control the amount of detail printed, allowing for a more structured and readable output when visualizing complex Rete networks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & \\
+\hline
+{\em level} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \doxymbox{\hyperlink{class_rete_core_1_1_alpha_condition_node-1-g_a8c0b94c46577fbb932bf7d5f32768506}{Rete\+Core.\+Alpha\+Condition\+Node$<$ T $>$}}, \doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory_a591b04e69de9d1686ab414d3edf9db1e}{Rete\+Core.\+Alpha\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_beta_memory_a767831479eb726c40a59f120cce0cee2}{Rete\+Core.\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_composite_beta_memory_a311c4b6c3cd7d820f0aa5330b589bcfe}{Rete\+Core.\+Composite\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_join_node_aa1dec06c20b9592255ad18b1905bff60}{Rete\+Core.\+Join\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_or_node_a75403cc73318556ea79cd25258b2bef9}{Rete\+Core.\+Or\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a32a9c105601776380db6e56665c96cde}{Rete\+Core.\+Terminal\+Node}}, \doxymbox{\hyperlink{class_rete_program_1_1_alpha_to_beta_adapter_a5ee94492f93ac8c8b35ef4bf221a1cd2}{Rete\+Program.\+Alpha\+To\+Beta\+Adapter}}, and \doxymbox{\hyperlink{class_rete_program_1_1_rete_engine_1_1_trace_node_a4b9363762a928494e8712416a78e6a4c}{Rete\+Program.\+Rete\+Engine.\+Trace\+Node}}.
+
+\Hypertarget{interface_rete_core_1_1_i_rete_node_ad9bdb84d1351f3db578f74bd067c09bc}\index{ReteCore.IReteNode@{ReteCore.IReteNode}!Refresh@{Refresh}}
+\index{Refresh@{Refresh}!ReteCore.IReteNode@{ReteCore.IReteNode}}
+\doxysubsubsection{\texorpdfstring{Refresh()}{Refresh()}}
+{\footnotesize\ttfamily \label{interface_rete_core_1_1_i_rete_node_ad9bdb84d1351f3db578f74bd067c09bc} 
+void Rete\+Core.\+IRete\+Node.\+Refresh (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{string}]{property\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Refreshes a fact in the Rete node, which may trigger re-\/evaluation of the fact and its propagation to successor nodes if necessary. This method is typically called when a property of a fact changes, and it allows the Rete network to update its state based on the new information. The specific behavior of this method depends on the type of node and how it manages its internal state. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might check if the changed property is relevant to its conditions and re-\/evaluate the fact accordingly, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might need to re-\/evaluate any tokens that contain the changed fact. The Refresh method is crucial for ensuring that the Rete network remains accurate and responsive to changes in facts over time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & \\
+\hline
+{\em property\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \doxymbox{\hyperlink{class_rete_core_1_1_alpha_condition_node-1-g_a9747b7bd0b9971ee46991cd10ed23291}{Rete\+Core.\+Alpha\+Condition\+Node$<$ T $>$}}, \doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory_af8b3d3e7a90f0d262447bb46db171867}{Rete\+Core.\+Alpha\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_beta_memory_a58a08aabeec0a86d1d5ad3f761274fde}{Rete\+Core.\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_composite_beta_memory_adf87e6e4469a3136092a747de53b20a2}{Rete\+Core.\+Composite\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_join_node_a029c58f15421c1a7c724805faea3cbd2}{Rete\+Core.\+Join\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_or_node_a9467839c50e763c15111c8b43a773296}{Rete\+Core.\+Or\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a06635491c40a3a5d508248845217a5bc}{Rete\+Core.\+Terminal\+Node}}, \doxymbox{\hyperlink{class_rete_program_1_1_alpha_to_beta_adapter_a600ccbfec15c6dce655939a071cac268}{Rete\+Program.\+Alpha\+To\+Beta\+Adapter}}, and \doxymbox{\hyperlink{class_rete_program_1_1_rete_engine_1_1_trace_node_a9818ba4050cc18e33ef441732bfc9880}{Rete\+Program.\+Rete\+Engine.\+Trace\+Node}}.
+
+\Hypertarget{interface_rete_core_1_1_i_rete_node_a451a325202ba1ccd36246273eea6a749}\index{ReteCore.IReteNode@{ReteCore.IReteNode}!Retract@{Retract}}
+\index{Retract@{Retract}!ReteCore.IReteNode@{ReteCore.IReteNode}}
+\doxysubsubsection{\texorpdfstring{Retract()}{Retract()}}
+{\footnotesize\ttfamily \label{interface_rete_core_1_1_i_rete_node_a451a325202ba1ccd36246273eea6a749} 
+void Rete\+Core.\+IRete\+Node.\+Retract (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Retracts a fact from the Rete node, which may trigger the removal of the fact from successor nodes. The specific behavior of this method depends on the type of node and how it manages its internal state. For example, an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} might remove the fact from its collection and propagate the retraction to successors, while a \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} might remove any tokens that contain the retracted fact and propagate those changes. The Retract method is essential for maintaining the consistency of the Rete network as facts change over time, allowing it to correctly reflect the current state of knowledge and trigger or deactivate rules as needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \doxymbox{\hyperlink{class_rete_core_1_1_alpha_condition_node-1-g_a99fdb5250e298873d8cf371d6380f11b}{Rete\+Core.\+Alpha\+Condition\+Node$<$ T $>$}}, \doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory_a5368329c19e1537943afc854d1bb5cf6}{Rete\+Core.\+Alpha\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_beta_memory_a97ff907e76b35ed7f21a58873fb53b51}{Rete\+Core.\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_composite_beta_memory_a1398475c3e317c22a8d981c5e87011bf}{Rete\+Core.\+Composite\+Beta\+Memory}}, \doxymbox{\hyperlink{class_rete_core_1_1_join_node_ace23893280e89a4ca7f31da52f416515}{Rete\+Core.\+Join\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_or_node_adcca0f2a0f6edb66df205a5aa976267e}{Rete\+Core.\+Or\+Node}}, \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node_a9e2e20cf83f802d84591c6782dd13e3d}{Rete\+Core.\+Terminal\+Node}}, \doxymbox{\hyperlink{class_rete_program_1_1_alpha_to_beta_adapter_a1e3d6ad7e220589f2edc9d068d318120}{Rete\+Program.\+Alpha\+To\+Beta\+Adapter}}, and \doxymbox{\hyperlink{class_rete_program_1_1_rete_engine_1_1_trace_node_a103820346fb19e637900c21668f79082}{Rete\+Program.\+Rete\+Engine.\+Trace\+Node}}.
+
+
+
+The documentation for this interface was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Rete\+Core/\+IRete\+Node.\+cs\end{DoxyCompactItemize}

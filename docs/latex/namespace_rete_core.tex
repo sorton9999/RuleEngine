@@ -1,0 +1,31 @@
+\doxysection{Rete\+Core Namespace Reference}
+\hypertarget{namespace_rete_core}{}\label{namespace_rete_core}\index{ReteCore@{ReteCore}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_activation}{Activation}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_rete_core_1_1_activation}{Activation} class represents a pending rule activation in a Rete-\/based rule engine. It encapsulates the information needed to execute a rule when its conditions are met, including the name of the rule, the action to perform, the token that triggered the activation, and the salience (priority) of the activation. Activations are typically created by terminal nodes in the Rete network and added to an agenda for later execution. When an activation is fired, it executes its associated action using the token that caused it to be activated. The salience value allows for prioritizing activations when multiple rules are activated simultaneously, with higher salience values being executed first. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_agenda}{Agenda}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_rete_core_1_1_agenda}{Agenda} class manages pending rule activations in a Rete-\/based rule engine. It maintains a list of activations that have been triggered but not yet executed. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_alpha_condition_node-1-g}{Alpha\+Condition\+Node$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em The Alpha\+Condition\+Node class represents a node in a Rete network that applies a simple condition (predicate) to incoming facts. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} class represents a node in a Rete network that stores individual facts and propagates them to successor nodes. It maintains a collection of facts that have been asserted and provides methods for asserting, retracting, and refreshing facts. When a fact is asserted, it is added to the collection and propagated to all successor nodes. When a fact is retracted, it is removed from the collection and successors are notified of the retraction. The Refresh method allows for updating the state of a fact without changing its presence in the memory. This class is a fundamental component of the Rete algorithm, enabling efficient pattern matching and rule evaluation in a rule engine. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_beta_memory}{Beta\+Memory}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_rete_core_1_1_beta_memory}{Beta\+Memory} class represents a node in a Rete network that stores partial matches (tokens) of facts and propagates them to successor nodes. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_composite_beta_memory}{Composite\+Beta\+Memory}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_rete_core_1_1_composite_beta_memory}{Composite\+Beta\+Memory} class represents a node in a Rete network that combines multiple branches of tokens (partial matches) using an OR logic. \end{DoxyCompactList}\item 
+interface \doxymbox{\hyperlink{interface_rete_core_1_1_i_latent_memory}{ILatent\+Memory}}
+\begin{DoxyCompactList}\small\item\em An interface representing a latent memory in a Rete network, which holds tokens that are not yet fully processed or activated. \end{DoxyCompactList}\item 
+interface \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}}
+\begin{DoxyCompactList}\small\item\em An interface representing a node in a Rete network, which is responsible for processing facts and propagating them through the network. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_join_node}{Join\+Node}}
+\begin{DoxyCompactList}\small\item\em Represents a join node in a RETE network that combines partial matches from the left input with facts from the right input based on a specified condition. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_or_node}{Or\+Node}}
+\begin{DoxyCompactList}\small\item\em Represents a node in a Rete network that forwards facts to multiple successor nodes, effectively implementing a logical OR branch. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_terminal_node}{Terminal\+Node}}
+\begin{DoxyCompactList}\small\item\em Represents a terminal node in a Rete network that schedules rule activations when matching facts are asserted. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_token}{Token}}
+\begin{DoxyCompactList}\small\item\em Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_rete_core_1_1_cell}{Cell}}
+\begin{DoxyCompactList}\small\item\em Represents a data cell with an identifier and a value, supporting property change notification. \end{DoxyCompactList}\end{DoxyCompactItemize}

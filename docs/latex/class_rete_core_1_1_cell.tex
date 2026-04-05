@@ -1,0 +1,75 @@
+\doxysection{Rete\+Core.\+Cell Class Reference}
+\hypertarget{class_rete_core_1_1_cell}{}\label{class_rete_core_1_1_cell}\index{ReteCore.Cell@{ReteCore.Cell}}
+
+
+Represents a data cell with an identifier and a value, supporting property change notification.  
+
+
+Inheritance diagram for Rete\+Core.\+Cell:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_rete_core_1_1_cell}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_rete_core_1_1_cell_ab5ed8db777a03db4e24c1f3756c2e689}\label{class_rete_core_1_1_cell_ab5ed8db777a03db4e24c1f3756c2e689} 
+override bool {\bfseries Equals} (object? obj)
+\item 
+\Hypertarget{class_rete_core_1_1_cell_a8d01e5bed934c3e2df94d7dcccddde8f}\label{class_rete_core_1_1_cell_a8d01e5bed934c3e2df94d7dcccddde8f} 
+override int {\bfseries Get\+Hash\+Code} ()
+\item 
+\Hypertarget{class_rete_core_1_1_cell_a0e8b60d7a59bbc3738ae206d1602784c}\label{class_rete_core_1_1_cell_a0e8b60d7a59bbc3738ae206d1602784c} 
+override string {\bfseries To\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_cell_aa9e7cbad898f0953f59b6f637a22142c}{On\+Property\+Changed}} (\+[Caller\+Member\+Name]\+ string property\+Name=null)
+\begin{DoxyCompactList}\small\item\em When a property value changes, this method is called to raise the Property\+Changed event. The Caller\+Member\+Name attribute allows the caller to omit the property name when calling this method, as it will automatically use the name of the calling property. This simplifies the code and reduces the likelihood of errors when raising property change notifications. Observers can subscribe to the Property\+Changed event to be notified when a property value changes, enabling features like data binding in UI frameworks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_rete_core_1_1_cell_a67d6176090215ec03d92a692eb16b00a}\label{class_rete_core_1_1_cell_a67d6176090215ec03d92a692eb16b00a} 
+String {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\item 
+\Hypertarget{class_rete_core_1_1_cell_a894e843ce343f049f17bf8fe38e61062}\label{class_rete_core_1_1_cell_a894e843ce343f049f17bf8fe38e61062} 
+int {\bfseries Value}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_rete_core_1_1_cell_a033e0bb40fef9abd67403d1fa09873b0}\label{class_rete_core_1_1_cell_a033e0bb40fef9abd67403d1fa09873b0} 
+Property\+Changed\+Event\+Handler {\bfseries Property\+Changed}
+\begin{DoxyCompactList}\small\item\em The Property\+Changed event is raised whenever a property value changes. Observers can subscribe to this event to be notified of changes to the properties of this class, allowing for responsive updates in scenarios such as data binding in user interfaces. The event handler receives the name of the property that changed, enabling observers to react specifically to changes in certain properties if needed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a data cell with an identifier and a value, supporting property change notification. 
+
+The \doxylink{class_rete_core_1_1_cell}{Cell} class implements INotify\+Property\+Changed to support data binding scenarios, such as those found in UI frameworks. Property\+Changed is raised when the Value property changes, allowing observers to react to updates. Equality and hash code operations are based on both the Id and Value properties.
+
+\label{doc-func-members}
+\Hypertarget{class_rete_core_1_1_cell_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_rete_core_1_1_cell_aa9e7cbad898f0953f59b6f637a22142c}\index{ReteCore.Cell@{ReteCore.Cell}!OnPropertyChanged@{OnPropertyChanged}}
+\index{OnPropertyChanged@{OnPropertyChanged}!ReteCore.Cell@{ReteCore.Cell}}
+\doxysubsubsection{\texorpdfstring{OnPropertyChanged()}{OnPropertyChanged()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_cell_aa9e7cbad898f0953f59b6f637a22142c} 
+void Rete\+Core.\+Cell.\+On\+Property\+Changed (\begin{DoxyParamCaption}\item[{\+[\+Caller\+Member\+Name]\+ string}]{property\+Name}{ = {\ttfamily null}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+When a property value changes, this method is called to raise the Property\+Changed event. The Caller\+Member\+Name attribute allows the caller to omit the property name when calling this method, as it will automatically use the name of the calling property. This simplifies the code and reduces the likelihood of errors when raising property change notifications. Observers can subscribe to the Property\+Changed event to be notified when a property value changes, enabling features like data binding in UI frameworks. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em property\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Rete\+Core/\+Token.\+cs\end{DoxyCompactItemize}

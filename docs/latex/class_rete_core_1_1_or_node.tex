@@ -1,0 +1,142 @@
+\doxysection{Rete\+Core.\+Or\+Node Class Reference}
+\hypertarget{class_rete_core_1_1_or_node}{}\label{class_rete_core_1_1_or_node}\index{ReteCore.OrNode@{ReteCore.OrNode}}
+
+
+Represents a node in a Rete network that forwards facts to multiple successor nodes, effectively implementing a logical OR branch.  
+
+
+Inheritance diagram for Rete\+Core.\+Or\+Node:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_rete_core_1_1_or_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_or_node_ab8d0e1ac63876edff76e882b1b45875c}{Add\+Successor}} (\doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}} node)
+\begin{DoxyCompactList}\small\item\em Adds the specified node as a successor to this node in the Rete network. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_or_node_abe3e11c27a460a0f1ee4b8e6de33766b}{Assert}} (object fact)
+\begin{DoxyCompactList}\small\item\em Propagates the specified fact to all successor nodes for further processing. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_or_node_adcca0f2a0f6edb66df205a5aa976267e}{Retract}} (object fact)
+\begin{DoxyCompactList}\small\item\em Retracts the specified fact from the rule engine, removing it from further consideration in rule evaluation. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_or_node_a9467839c50e763c15111c8b43a773296}{Refresh}} (object fact, string prop)
+\begin{DoxyCompactList}\small\item\em Propagates a refresh operation for the specified fact and property to all successor nodes. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_rete_core_1_1_or_node_a75403cc73318556ea79cd25258b2bef9}{Debug\+Print}} (object fact, int level=0)
+\begin{DoxyCompactList}\small\item\em Writes a formatted debug message to the console that includes the specified fact and the current number of successors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a node in a Rete network that forwards facts to multiple successor nodes, effectively implementing a logical OR branch. 
+
+The \doxylink{class_rete_core_1_1_or_node}{Or\+Node} is typically used within a Rete-\/based rule engine to allow a fact to be propagated to several alternative branches in the network. When a fact is asserted, retracted, or refreshed, the operation is forwarded to all successor nodes. This enables rules that require matching on any of several conditions to be efficiently represented. The \doxylink{class_rete_core_1_1_or_node}{Or\+Node} does not perform any filtering or transformation of facts; it simply passes them through to its successors.
+
+\label{doc-func-members}
+\Hypertarget{class_rete_core_1_1_or_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_rete_core_1_1_or_node_ab8d0e1ac63876edff76e882b1b45875c}\index{ReteCore.OrNode@{ReteCore.OrNode}!AddSuccessor@{AddSuccessor}}
+\index{AddSuccessor@{AddSuccessor}!ReteCore.OrNode@{ReteCore.OrNode}}
+\doxysubsubsection{\texorpdfstring{AddSuccessor()}{AddSuccessor()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_or_node_ab8d0e1ac63876edff76e882b1b45875c} 
+void Rete\+Core.\+Or\+Node.\+Add\+Successor (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}}}]{node}{}\end{DoxyParamCaption})}
+
+
+
+Adds the specified node as a successor to this node in the Rete network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The node to add as a successor. Cannot be null.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_rete_core_1_1_or_node_abe3e11c27a460a0f1ee4b8e6de33766b}\index{ReteCore.OrNode@{ReteCore.OrNode}!Assert@{Assert}}
+\index{Assert@{Assert}!ReteCore.OrNode@{ReteCore.OrNode}}
+\doxysubsubsection{\texorpdfstring{Assert()}{Assert()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_or_node_abe3e11c27a460a0f1ee4b8e6de33766b} 
+void Rete\+Core.\+Or\+Node.\+Assert (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Propagates the specified fact to all successor nodes for further processing. 
+
+This method forwards the provided fact to each successor node in the current node\textquotesingle{}s collection. The fact is not modified by this method.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to be asserted and passed to successor nodes. Cannot be null.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a05567f044dd13d4de35da0591191fca2}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_or_node_a75403cc73318556ea79cd25258b2bef9}\index{ReteCore.OrNode@{ReteCore.OrNode}!DebugPrint@{DebugPrint}}
+\index{DebugPrint@{DebugPrint}!ReteCore.OrNode@{ReteCore.OrNode}}
+\doxysubsubsection{\texorpdfstring{DebugPrint()}{DebugPrint()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_or_node_a75403cc73318556ea79cd25258b2bef9} 
+void Rete\+Core.\+Or\+Node.\+Debug\+Print (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{int}]{level}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Writes a formatted debug message to the console that includes the specified fact and the current number of successors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to include in the debug output. Can be any object; its string representation will be printed.\\
+\hline
+{\em level} & The indentation level to apply to the debug message. Each level increases indentation by spaces. Defaults to 0.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_aaee4a1eb9365b5d13e8301fc3d1d9730}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_or_node_a9467839c50e763c15111c8b43a773296}\index{ReteCore.OrNode@{ReteCore.OrNode}!Refresh@{Refresh}}
+\index{Refresh@{Refresh}!ReteCore.OrNode@{ReteCore.OrNode}}
+\doxysubsubsection{\texorpdfstring{Refresh()}{Refresh()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_or_node_a9467839c50e763c15111c8b43a773296} 
+void Rete\+Core.\+Or\+Node.\+Refresh (\begin{DoxyParamCaption}\item[{object}]{fact}{, }\item[{string}]{prop}{}\end{DoxyParamCaption})}
+
+
+
+Propagates a refresh operation for the specified fact and property to all successor nodes. 
+
+Use this method to notify all successor nodes that a particular property of a fact has changed and may require re-\/evaluation. This method does not perform any refresh logic itself but delegates the operation to its successors.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object whose property is being refreshed. Cannot be null.\\
+\hline
+{\em prop} & The name of the property to refresh. Cannot be null or empty.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_ad9bdb84d1351f3db578f74bd067c09bc}{Rete\+Core.\+IRete\+Node}}.
+
+\Hypertarget{class_rete_core_1_1_or_node_adcca0f2a0f6edb66df205a5aa976267e}\index{ReteCore.OrNode@{ReteCore.OrNode}!Retract@{Retract}}
+\index{Retract@{Retract}!ReteCore.OrNode@{ReteCore.OrNode}}
+\doxysubsubsection{\texorpdfstring{Retract()}{Retract()}}
+{\footnotesize\ttfamily \label{class_rete_core_1_1_or_node_adcca0f2a0f6edb66df205a5aa976267e} 
+void Rete\+Core.\+Or\+Node.\+Retract (\begin{DoxyParamCaption}\item[{object}]{fact}{}\end{DoxyParamCaption})}
+
+
+
+Retracts the specified fact from the rule engine, removing it from further consideration in rule evaluation. 
+
+If the specified fact is not currently asserted, this method has no effect. Retracting a fact may cause dependent rules to be reevaluated or deactivated.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fact} & The fact object to retract. Cannot be null.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node_a451a325202ba1ccd36246273eea6a749}{Rete\+Core.\+IRete\+Node}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Rete\+Core/\+Or\+Node.\+cs\end{DoxyCompactItemize}
