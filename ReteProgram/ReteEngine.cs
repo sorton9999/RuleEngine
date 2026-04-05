@@ -1,5 +1,6 @@
 ﻿using ReteCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -48,7 +49,6 @@ namespace ReteProgram
         public void FireAll()
         {
             while (_agenda.HasActivations) { _agenda.FireAll(); }
-            //_agenda.FireAll();
         }
 
         // Helper to build a "Conflict" rule easily
@@ -124,10 +124,6 @@ namespace ReteProgram
             {
                 foreach (var child in _children)
                 {
-                    //if (child is ObjectTypeNode<object> typeNode)
-                    //{
-                    //    typeNode.Refresh(fact, propertyName);
-                    //}
                     child.Refresh(fact, propertyName);
                 }
             }
@@ -150,17 +146,6 @@ namespace ReteProgram
                 {
                     foreach (var child in _children)
                     {
-                        /*
-                        if (child is AlphaConditionNode<T> alphaNode)
-                        {
-                            alphaNode.Refresh(typedFact, propertyName);
-                        }
-                        else
-                        {
-                            //child.Assert(typedFact);
-                            child.Refresh(typedFact, propertyName);
-                        }
-                        */
                         child.Refresh(fact, propertyName);
                     }
                 }
@@ -174,12 +159,14 @@ namespace ReteProgram
             }
         }
 
-        public class TraceNode : IReteNode
+        public class TraceNode : IReteNode, ILatentMemory
         {
             private readonly string _label;
             private readonly List<IReteNode> _successors = new();
+            private Token token = new Token("Dummy Token", null);
 
             public TraceNode(string label) => _label = label;
+            public IEnumerable<Token> Tokens { get { return new List<Token> () { token }; } }
             public void AddSuccessor(IReteNode node) => _successors.Add(node);
 
             public void Assert(object fact)

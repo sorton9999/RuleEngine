@@ -1,7 +1,7 @@
 ﻿using ReteCore;
 using ReteProgram;
 
-/*
+
 var engine = new ReteEngine();
 
 // Define a rule: "If two cells have same ID but different Values"
@@ -150,7 +150,7 @@ engine2.Assert(frontDoorM);
 // 3. Fire the Engine
 // This will satisfy the "NightIntrusion_Door" rule.
 engine2.FireAll();
-*/
+
 
 var engine3 = new ReteEngine();
 CriticalCell critCell = new() { Id="C", Value = 100, Status = "Not Critical" };
@@ -181,7 +181,7 @@ var engine4 = new ReteEngine();
 // Rule 1: When a Cell value is high, mark it "Urgent"
 engine4.Begin("MarkUrgent")
     .Match<CriticalCell>("M")
-    .And<CriticalCell>("M", (t, c) => c.Value > 100 && c.Status != "Urgent", "MarkUrgent")
+    .And<CriticalCell>("M", (t, c) => c.Value > 100 && c.Status != "Urgent")
     .Then(t => {
         var c = t.Get<CriticalCell>("M");
         c.Status = "Urgent";
@@ -192,17 +192,45 @@ engine4.Begin("MarkUrgent")
 
 // Rule 2: When a Cell is "Urgent", log an alert
 engine4.Begin("AlertUrgent")
-    .Match<CriticalCell>("M")
-    .And<CriticalCell>("M", (t, c) => c.Status == "Urgent", "AlertUrgent")
+    .Match<CriticalCell>("A")
+    .And<CriticalCell>("A", (t, c) => c.Status == "Urgent")
     .Then(t => Console.WriteLine("ALERT! Urgent!"));
 
 // ASSERT DATA
-engine4.Assert(new CriticalCell { Id = "M", Value = 150, Status = "Normal" });
+engine4.Assert(new CriticalCell { Id = "A", Value = 150, Status = "Normal" });
 
 // RECURSIVE FIRE LOOP
-Console.WriteLine("Starting Fire Loop...");
-//while (engine4.Agenda.HasActivations)
-//{
-    engine4.FireAll();
-//}
-Console.WriteLine("Loop Finished.");
+engine4.FireAll();
+
+string cellName = "M";
+var engine5 = new ReteEngine();
+var criticalCell = new CriticalCell { Id = "cellName", Status = "Normal", Value = 590 };
+engine5.Begin("MatchStatus")
+    .Match<CriticalCell>(cellName)
+    .Or<CriticalCell>(cellName,
+    (t, c) => c.Status != "Urgent",
+    (t, c) => c.Value >= 100
+    )
+    .And<CriticalCell>(cellName, (t, c) => c.Value < 500)
+    .Then(t => {
+        Token current = t;
+        //while (current != null)
+        //{
+        //    Console.WriteLine($" -> Fact: {current.Fact}");
+        //    current = current.Parent;
+        //}
+        Console.WriteLine($"[{t.Fact}]: This should be marked Urgent!");
+        });
+
+// The original cell should not print the alert because it's normal
+// but the value is too high
+engine5.Assert(criticalCell);
+
+engine5.FireAll();
+
+// This value change should trigger the rule to mark it Urgent and print the alert
+criticalCell.Value = 120;
+
+// Fire the rule again to see the affect of the value change
+engine5.FireAll();
+
