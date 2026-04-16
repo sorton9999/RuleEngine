@@ -86,12 +86,25 @@ namespace ReteProgram
 
         public RuleBuilder<Cell> Begin(string ruleName) => new RuleBuilder<Cell>(this, ruleName);
 
-        private readonly Dictionary<Type, object> _alphaRegistry = new();
+        private readonly Dictionary<(Type Type, string Name), object> _alphaRegistry = new();
 
         public AlphaMemory GetAlphaMemory<T>(string name = null, Func<T, bool> initialCondition = null)
         {
             var type = typeof(T);
-            if (!_alphaRegistry.ContainsKey(type))
+
+            // Get or create the ObjectTypeNode for type T
+            var typeNode = _root.GetSuccessor<T>();
+            if (typeNode == null)
+            {
+                typeNode = new ObjectTypeNode<T>();
+                _root.AddSuccessor(typeNode);
+            }
+
+            // Use a combination of type and name as the key for the alpha registry.
+            // We want to reuse the same alpha memory for the same type and name,
+            // but allow different conditions to create separate alpha memories if needed.
+            var registryKey = (type, name ?? "default");
+            if (!_alphaRegistry.ContainsKey(registryKey))
             {
                 AlphaConditionNode<T> alphaConditionNode = null;
                 var alpha = new AlphaMemory();
@@ -99,14 +112,11 @@ namespace ReteProgram
                 {
                     alphaConditionNode = new AlphaConditionNode<T>(name, initialCondition, alpha);
                 }
-                var typeNode = new ObjectTypeNode<T>();
                 typeNode.AddSuccessor(alphaConditionNode != null ? alphaConditionNode : alpha);
 
-                _root.AddSuccessor(typeNode);
-
-                _alphaRegistry[type] = alpha;
+                _alphaRegistry[registryKey] = alpha;
             }
-            return (AlphaMemory)_alphaRegistry[typeof(T)];
+            return (AlphaMemory)_alphaRegistry[registryKey];
         }
 
         public void DebugPrintNetwork(object fact)
@@ -130,6 +140,12 @@ namespace ReteProgram
                 {
                     child.Refresh(fact, propertyName);
                 }
+            }
+            public ObjectTypeNode<T> GetSuccessor<T>()
+            {
+                return _children
+                    .OfType<ObjectTypeNode<T>>()
+                    .FirstOrDefault();
             }
             public void DebugPrint(object fact, int level = 0)
             {

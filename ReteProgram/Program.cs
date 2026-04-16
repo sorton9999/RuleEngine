@@ -207,12 +207,8 @@ var engine5 = new ReteEngine();
 var criticalCell = new CriticalCell { Id = cellName, Status = "Normal", Value = 590 };
 engine5.Begin("MatchStatus")
     .Match<CriticalCell>(cellName, "MatchStatus", (c) => { return c.Status == "Normal"; })
-    .Or<CriticalCell>(cellName,
-    (t, c) => c.Status != "Urgent",
-    (t, c) => c.Value >= 100
-    )
     //.And<CriticalCell>(cellName, (t, c) => c.Value > 500)
-    .Or<CriticalCell>(cellName, 
+    .Or<CriticalCell>(cellName, "MatchOr",
     (t, c) => c.Value > 500,
     (t, c) => c.Value < 200)
     .Then(t => {
@@ -255,10 +251,10 @@ var engine7 = new ReteEngine();
 engine7.Begin("MatchStatusExists")
     .Match<CriticalCell>("C")
     .Exists<CriticalCell>("C", (t, c) => c.Status == "Normal", "MarkExists")
-    .Or<CriticalCell>("C", "Exists-MarkOr", 
-        (t, c) => c.Value > 500,
-        (t, c) => c.Value < 300
-        )
+    //.Or<CriticalCell>("C", "Exists-MarkOr", 
+    //    (t, c) => c.Value > 500,
+    //    (t, c) => c.Value < 300
+    //    )
     .Then(t => {
         Console.WriteLine($">>RESULT:[{t}]: This Exists and should be marked URGENT!");
         });
@@ -267,9 +263,9 @@ engine7.Assert(criticalCell2);
 engine7.FireAll();
 
 var engine8 = new ReteEngine();
+
 engine8.Begin("Alert_Out_of_Stock_Electronics")
-    .Match<Product>("P")
-    .And<Product>("P", (t, i) => i.Category == "Electronics", "CheckCategory")
+    .Match<Product>("P", "MatchElec", (c) => c.Category == "Electronics")
     .Not<Inventory>("P", (t, i) => i.ProductId == t.Get<Product>("P").ProductId, "NoStock")
     .Then(terminal =>
     {
@@ -278,22 +274,23 @@ engine8.Begin("Alert_Out_of_Stock_Electronics")
     });
 
 engine8.Begin("Tag_High_Priority_Items")
-    .Match<Product>("P")
-    .And<Product>("P", (t, i) => i.ProductId == t.Get<Product>("P").ProductId)
+    .Match<Product>("R")
+    .And<Product>("R", (t, i) => i.ProductId == t.Get<Product>("R").ProductId)
     // OR: Join logic splits here. Firing if either branch is true.
-    .Or<Product>("P", "PriceCheck",
+    .Or<Product>("R", "PriceCheck",
         (t, c) => c.Price > 1000,
         (t, c) => c.ProductId == 998899)
     .Then(t => {
-        Console.WriteLine($"[ACTION] Tagging {t.Get<Product>("P").Name} for Insurance.", 100);
+        Console.WriteLine($"[ACTION] Tagging {t.Get<Product>("R").Name} for Insurance.", 100);
     });
 
 engine8.Begin("Process_Urgent_Batch")
-    .Match<Product>("P")
+    .Match<Inventory>("I", null, (i) => i.WarehouseLocation == "Aisle 3")
+    .Match<Product>("Q", null, (p) => p.Name != String.Empty)
     // EXISTS: We only care IF there is a pending shipment, not HOW MANY.
-    .Exists<Shipment>("P", (t, s) => s.ProductId == t.Get<Product>("P").ProductId && s.Status == "Pending")
+    .Exists<Shipment>("S", (t, s) => s.ProductId == t.Get<Product>("Q").ProductId && s.Status == "Pending")
     .Then(t => {
-        Console.WriteLine($"[ACTION] Adding {t.Get<Product>("P").Name} to the morning truck.", 555);
+        Console.WriteLine($"[ACTION] Adding {t.Get<Product>("Q").Name} to the morning truck.", 555);
     });
 
 Product product = new Product()
@@ -310,17 +307,37 @@ Product product2 = new Product()
     Category = "Accessories",
     Price = 5000
 };
+Product product3 = new Product()
+{
+    ProductId = 12347,
+    Name = "Frisbee",
+    Category = "Sports",
+    Price = 25
+};
 Inventory inventory = new Inventory()
 {
     ProductId = 12347,
-    Quantity = 0
+    Quantity = 1,
+    WarehouseLocation = "Aisle 3"
 };
 Inventory inventory2 = new Inventory()
 {
     ProductId = 888899,
-    Quantity = 1
+    Quantity = 1,
+    WarehouseLocation = "Aisle 5"
+};
+Inventory inventory3 = new Inventory()
+{
+    ProductId = 12349,
+    Quantity = 0,
+    WarehouseLocation = "Aisle 1"
 };
 Shipment shipment = new Shipment()
+{
+    ProductId = 12347,
+    Status = "No Status"
+};
+Shipment shipment2 = new Shipment()
 {
     ProductId = 888899,
     Status = "Pending"
@@ -328,9 +345,15 @@ Shipment shipment = new Shipment()
 
 engine8.Assert(product);
 engine8.Assert(product2);
+engine8.Assert(product3);
 engine8.Assert(inventory);
 engine8.Assert(inventory2);
+engine8.Assert(inventory3);
 engine8.Assert(shipment);
+engine8.Assert(shipment2);
 
+engine8.FireAll();
+Console.WriteLine("Changing shipment status to Pending...");
+shipment.Status = "Pending";
 engine8.FireAll();
 
