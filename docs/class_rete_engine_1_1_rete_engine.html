@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReteEngine: ReteEngine.ReteEngine Class Reference</title>
+<title>ReteRaven: ReteEngine.ReteEngine Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,10 +25,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="ReteRavenLogo350x200.png"/></td>
   <td id="projectalign">
-   <div id="projectname">ReteEngine<span id="projectnumber">&#160;1.0</span>
+   <div id="projectname">ReteRaven<span id="projectnumber">&#160;1.0</span>
    </div>
-   <div id="projectbrief">A rules engine and builder</div>
+   <div id="projectbrief">A Rete-based rules engine and builder</div>
   </td>
  </tr>
  </tbody>
@@ -93,10 +94,16 @@ $(function(){initNavTree('class_rete_engine_1_1_rete_engine.html','','class_rete
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:TraceNode" id="r_TraceNode"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_rete_engine_1_1_rete_engine_1_1_trace_node.html">TraceNode</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa5ebe4a5c3e34e17d0316c05906c5124" id="r_aa5ebe4a5c3e34e17d0316c05906c5124"><td class="memItemLeft"><a id="aa5ebe4a5c3e34e17d0316c05906c5124" name="aa5ebe4a5c3e34e17d0316c05906c5124"></a>
 void&#160;</td><td class="memItemRight"><b>Assert</b> (object fact)</td></tr>
+<tr class="memitem:a18758b98c310f4445f0faeef7beb449e" id="r_a18758b98c310f4445f0faeef7beb449e"><td class="memItemLeft"><a id="a18758b98c310f4445f0faeef7beb449e" name="a18758b98c310f4445f0faeef7beb449e"></a>
+void&#160;</td><td class="memItemRight"><b>Refresh</b> (object fact, string propertyName=null)</td></tr>
 <tr class="memitem:a717718935426e662c587c586659ad566" id="r_a717718935426e662c587c586659ad566"><td class="memItemLeft"><a id="a717718935426e662c587c586659ad566" name="a717718935426e662c587c586659ad566"></a>
 void&#160;</td><td class="memItemRight"><b>Retract</b> (object fact)</td></tr>
 <tr class="memitem:a494a476b7fe765daac2afc64047b7cd2" id="r_a494a476b7fe765daac2afc64047b7cd2"><td class="memItemLeft"><a id="a494a476b7fe765daac2afc64047b7cd2" name="a494a476b7fe765daac2afc64047b7cd2"></a>
@@ -105,6 +112,19 @@ void&#160;</td><td class="memItemRight"><b>FireAll</b> ()</td></tr>
 void&#160;</td><td class="memItemRight"><b>RegisterConflictRule&lt; T &gt;</b> (string name, Func&lt; <a class="el" href="class_rete_core_1_1_token.html">Token</a>, T, bool &gt; condition, Action&lt; T, T &gt; action, int salience=0)</td></tr>
 <tr class="memitem:aee9c66cca25aa52f22607ea114d007c8" id="r_aee9c66cca25aa52f22607ea114d007c8"><td class="memItemLeft"><a id="aee9c66cca25aa52f22607ea114d007c8" name="aee9c66cca25aa52f22607ea114d007c8"></a>
 void&#160;</td><td class="memItemRight"><b>Update</b> (object fact)</td></tr>
+<tr class="memitem:a8cc4e3e56b368152eca15f625b805842" id="r_a8cc4e3e56b368152eca15f625b805842"><td class="memItemLeft"><a id="a8cc4e3e56b368152eca15f625b805842" name="a8cc4e3e56b368152eca15f625b805842"></a>
+ReteBuilder&lt; <a class="el" href="class_rete_core_1_1_cell.html">Cell</a> &gt;&#160;</td><td class="memItemRight"><b>Begin</b> (string ruleName)</td></tr>
+<tr class="memitem:a7b0c9639fc6104e43b47d4a33a347b69" id="r_a7b0c9639fc6104e43b47d4a33a347b69"><td class="memItemLeft"><a id="a7b0c9639fc6104e43b47d4a33a347b69" name="a7b0c9639fc6104e43b47d4a33a347b69"></a>
+<a class="el" href="class_rete_core_1_1_alpha_memory.html">AlphaMemory</a>&#160;</td><td class="memItemRight"><b>GetAlphaMemory&lt; T &gt;</b> (string name=null, Func&lt; T, bool &gt; initialCondition=null)</td></tr>
+<tr class="memitem:a5a8c8aa05c56f4f5dccb3de993e8e8d3" id="r_a5a8c8aa05c56f4f5dccb3de993e8e8d3"><td class="memItemLeft"><a id="a5a8c8aa05c56f4f5dccb3de993e8e8d3" name="a5a8c8aa05c56f4f5dccb3de993e8e8d3"></a>
+void&#160;</td><td class="memItemRight"><b>DebugPrintNetwork</b> (object fact)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a9f9bbed9f002ef62bcf3717a2eaf7a87" id="r_a9f9bbed9f002ef62bcf3717a2eaf7a87"><td class="memItemLeft"><a id="a9f9bbed9f002ef62bcf3717a2eaf7a87" name="a9f9bbed9f002ef62bcf3717a2eaf7a87"></a>
+<a class="el" href="interface_rete_core_1_1_i_rete_node.html">IReteNode</a>&#160;</td><td class="memItemRight"><b>Root</b><code> [get]</code></td></tr>
+<tr class="memitem:a3bed090030ab23747f4af9d81690bf10" id="r_a3bed090030ab23747f4af9d81690bf10"><td class="memItemLeft"><a id="a3bed090030ab23747f4af9d81690bf10" name="a3bed090030ab23747f4af9d81690bf10"></a>
+Agenda&#160;</td><td class="memItemRight"><b>Agenda</b><code> [get]</code></td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>ReteEngine/<b>ReteEngine.cs</b></li>

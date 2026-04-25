@@ -1,10 +1,18 @@
 \doxysection{Rete\+Engine.\+Rete\+Engine Class Reference}
 \hypertarget{class_rete_engine_1_1_rete_engine}{}\label{class_rete_engine_1_1_rete_engine}\index{ReteEngine.ReteEngine@{ReteEngine.ReteEngine}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_rete_engine_1_1_rete_engine_1_1_trace_node}{Trace\+Node}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_rete_engine_1_1_rete_engine_aa5ebe4a5c3e34e17d0316c05906c5124}\label{class_rete_engine_1_1_rete_engine_aa5ebe4a5c3e34e17d0316c05906c5124} 
 void {\bfseries Assert} (object fact)
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a18758b98c310f4445f0faeef7beb449e}\label{class_rete_engine_1_1_rete_engine_a18758b98c310f4445f0faeef7beb449e} 
+void {\bfseries Refresh} (object fact, string property\+Name=null)
 \item 
 \Hypertarget{class_rete_engine_1_1_rete_engine_a717718935426e662c587c586659ad566}\label{class_rete_engine_1_1_rete_engine_a717718935426e662c587c586659ad566} 
 void {\bfseries Retract} (object fact)
@@ -17,6 +25,24 @@ void {\bfseries Register\+Conflict\+Rule$<$ T $>$} (string name, Func$<$ \doxymb
 \item 
 \Hypertarget{class_rete_engine_1_1_rete_engine_aee9c66cca25aa52f22607ea114d007c8}\label{class_rete_engine_1_1_rete_engine_aee9c66cca25aa52f22607ea114d007c8} 
 void {\bfseries Update} (object fact)
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a8cc4e3e56b368152eca15f625b805842}\label{class_rete_engine_1_1_rete_engine_a8cc4e3e56b368152eca15f625b805842} 
+Rete\+Builder$<$ \doxymbox{\hyperlink{class_rete_core_1_1_cell}{Cell}} $>$ {\bfseries Begin} (string rule\+Name)
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a7b0c9639fc6104e43b47d4a33a347b69}\label{class_rete_engine_1_1_rete_engine_a7b0c9639fc6104e43b47d4a33a347b69} 
+\doxymbox{\hyperlink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}} {\bfseries Get\+Alpha\+Memory$<$ T $>$} (string name=null, Func$<$ T, bool $>$ initial\+Condition=null)
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a5a8c8aa05c56f4f5dccb3de993e8e8d3}\label{class_rete_engine_1_1_rete_engine_a5a8c8aa05c56f4f5dccb3de993e8e8d3} 
+void {\bfseries Debug\+Print\+Network} (object fact)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a9f9bbed9f002ef62bcf3717a2eaf7a87}\label{class_rete_engine_1_1_rete_engine_a9f9bbed9f002ef62bcf3717a2eaf7a87} 
+\doxymbox{\hyperlink{interface_rete_core_1_1_i_rete_node}{IRete\+Node}} {\bfseries Root}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\item 
+\Hypertarget{class_rete_engine_1_1_rete_engine_a3bed090030ab23747f4af9d81690bf10}\label{class_rete_engine_1_1_rete_engine_a3bed090030ab23747f4af9d81690bf10} 
+Agenda {\bfseries Agenda}\hspace{0.3cm}{\ttfamily  \+[get]\+}
 \end{DoxyCompactItemize}
 
 

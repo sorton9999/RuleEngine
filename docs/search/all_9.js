@@ -4,5 +4,6 @@ var searchData=
   ['ifact_1',['IFact',['../interface_rete_core_1_1_i_fact.html',1,'ReteCore']]],
   ['ilatentmemory_2',['ILatentMemory',['../interface_rete_core_1_1_i_latent_memory.html',1,'ReteCore']]],
   ['indexedexistsnode_3',['IndexedExistsNode',['../class_rete_core_1_1_indexed_exists_node.html',1,'ReteCore.IndexedExistsNode'],['../class_rete_core_1_1_indexed_exists_node.html#a116fe487025c42a321314aac148a7c4f',1,'ReteCore.IndexedExistsNode.IndexedExistsNode()']]],
-  ['iretenode_4',['IReteNode',['../interface_rete_core_1_1_i_rete_node.html',1,'ReteCore']]]
+  ['inventory_4',['Inventory',['../class_rete_engine_1_1_inventory.html',1,'ReteEngine']]],
+  ['iretenode_5',['IReteNode',['../interface_rete_core_1_1_i_rete_node.html',1,'ReteCore']]]
 ];
