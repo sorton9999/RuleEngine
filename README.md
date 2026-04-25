@@ -55,7 +55,7 @@ Integrate the engine into your tick loop.
 ```csharp
 public void OnTick() {
     // 1. Sync world changes
-    engine.Update(changedEntity);
+    engine.Assert(changedEntity);
     
     // 2. Fire rules
     engine.FireAll();
