@@ -369,5 +369,116 @@ Console.WriteLine("Changing shipment status to Pending...");
 shipment.Status = "Pending";
 engine8.FireAll();
 
+// Test case for recursive rule firing and propagation through multiple levels
+// of related facts.
+Console.WriteLine("\n--- Testing Recursive Rule ---");
+var engine9 = new ReteEngine.ReteEngine();
+engine9.Begin("TestOrderPropagation")
+    //.Trace($"OrderPropagation")
+    .Where<Order>("O", null, o => !o.IsProcessed)
+    .And<Officer>("F", (t, off) => off.Rank == t.Get<Order>("O").TargetRank)
+    .Then(t => {
+        var order = t.Get<Order>("O");
+        var officer = t.Get<Officer>("F");
+        Console.WriteLine($"[ACTION] {officer.Name} is handling the order.");
 
+        if (officer.Rank == order.TargetRank)
+        {
+            // This is our base case: the order has reached the correct rank and is executed.
+            Console.WriteLine($"[ACTION]----> {officer.Name} (Rank: {officer.Rank}) is executing the order [{order.Text}]");
+        }
+        else if (!string.IsNullOrEmpty(officer.ReportsToRank))
+        {
+            var subOrder = new Order() { 
+                TargetRank = officer.Underling,
+                Text = order.Text,
+                IsProcessed = false
+            };
+            // This assertion will trigger the same rule for the underling officer,
+            // creating a recursive effect.
+            engine9.Assert(subOrder);
+        }
+        // Mark the original order as processed
+        order.IsProcessed = true;
+    });
 
+var order1 = new Order { Id = "1", Text = "Charge!", TargetRank = "Lieutenant", GivenBy = "General", IsProcessed = false };
+var officer1 = new Officer { Id = "1", Name = "Smith", Rank = "Lieutenant", Underling = "" };
+var officer2 = new Officer { Id = "2", Name = "Johnson", Rank = "Captain", Underling = "Lieutenant" };
+var officer3 = new Officer { Id = "3", Name = "Brown", Rank = "Major", Underling = "Captain" };
+var officer4 = new Officer { Id = "4", Name = "Davis", Rank = "Colonel", Underling = "Major" };
+var officer5 = new Officer { Id = "5", Name = "Williams", Rank = "General", Underling = "Colonel" };
+var officer6 = new Officer { Id = "6", Name = "Anderson", Rank = "Captain", Underling = "Lieutenant" };
+engine9.Assert(officer6);
+engine9.Assert(officer5);
+engine9.Assert(officer4);
+engine9.Assert(officer3);
+engine9.Assert(officer2);
+engine9.Assert(officer1);
+engine9.Assert(order1);
+
+engine9.FireAll();
+
+Console.WriteLine("\n--- Testing another order, but there are 2 of that rank ---");
+var order2 = new Order { Id = "2", Text = "Retreat!", TargetRank = "Captain", GivenBy = "General", IsProcessed = false };
+engine9.Assert(order2);
+engine9.FireAll();
+
+// Adding new rules to check if the officers are on duty before executing orders.
+// If not on duty, the order is not handled by that officer.
+Console.WriteLine("\n--- Testing Duty Status ---");
+engine9.Begin("ExecuteOnDuty")
+    //.Trace($"OnDutyTrace")
+    .Where<Order>("OnDO", null, o => !o.IsProcessed)
+    .And<Officer>("DF", (t, off) => off.Rank == t.Get<Order>("OnDO").TargetRank)
+    .And<DutyStatus>("D", (t, d) => d.Name == t.Get<Officer>("DF").Name && d.OnDuty)
+    .Then(t =>
+    {
+        Console.WriteLine($"[ACTION] {t.Get<Officer>("DF").Name} is on duty and executing the order [{t.Get<Order>("OnDO").Text}].");
+        t.Get<Order>("OnDO").IsProcessed = true;
+    });
+// Need a rule to handle the off duty case.
+engine9.Begin("HandleOffDuty")
+    //.Trace($"OffDutyTrace")
+    .Where<Order>("OffDO", null, o => !o.IsProcessed)
+    .And<Officer>("DF", (t, off) => off.Rank == t.Get<Order>("OffDO").TargetRank)
+    .And<DutyStatus>("DS", (t, d) => d.Name == t.Get<Officer>("DF").Name && !d.OnDuty)
+    .Then(t =>
+    {
+        Console.WriteLine($"[ACTION] Officer {t.Get<Officer>("DF").Name} is off duty and not handling the order.");
+    });
+
+var duty1 = new DutyStatus { Id = "1", Name = "Smith", OnDuty = true };
+var duty2 = new DutyStatus { Id = "2", Name = "Johnson", OnDuty = false };
+var duty3 = new DutyStatus { Id = "3", Name = "Brown", OnDuty = true };
+var duty4 = new DutyStatus { Id = "4", Name = "Davis", OnDuty = true };
+var duty5 = new DutyStatus { Id = "5", Name = "Williams", OnDuty = true };
+var duty6 = new DutyStatus { Id = "6", Name = "Anderson", OnDuty = true };
+engine9.Assert(duty1);
+engine9.Assert(duty2);
+engine9.Assert(duty3);
+engine9.Assert(duty4);
+engine9.Assert(duty5);
+engine9.Assert(duty6);
+
+// Update the order to trigger the new rules.
+// This will cause the "HandleOffDuty" rule to fire for Johnson, who is off duty.
+order2.IsProcessed = false;
+engine9.Update(order2);
+engine9.FireAll();
+
+// Let's create a scenario where there is only one officer on duty of duplicate ranks,
+// and see how the rules handle that.  We will set the officer on duty in a duty status
+// update and fire again.
+Console.WriteLine("\n--- Testing Lieutenant Off Duty ---");
+var order3 = new Order { Id = "3", Text = "Shuffle Papers", TargetRank = "Lieutenant", GivenBy = "Colonel", IsProcessed = false };
+engine9.Assert(order3);
+duty1.OnDuty = false;
+engine9.Update(duty1);
+engine9.FireAll();
+Console.WriteLine("\n--- Testing Lieutenant Back On Duty ---");
+duty1.OnDuty = true;
+order3.IsProcessed = false;
+engine9.Update(duty1);
+engine9.Update(order3);
+engine9.FireAll();

@@ -30,7 +30,8 @@ var annotated_dup =
       [ "Product", "class_rete_engine_1_1_product.html", null ],
       [ "Inventory", "class_rete_engine_1_1_inventory.html", null ],
       [ "Shipment", "class_rete_engine_1_1_shipment.html", null ],
-      [ "TestEval", "class_rete_engine_1_1_test_eval.html", null ],
+      [ "Order", "class_rete_engine_1_1_order.html", null ],
+      [ "Officer", "class_rete_engine_1_1_officer.html", null ],
       [ "ReteEngine", "class_rete_engine_1_1_rete_engine.html", "class_rete_engine_1_1_rete_engine" ]
     ] ]
 ];

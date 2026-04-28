@@ -17,9 +17,10 @@ var hierarchy =
       [ "ReteCore.Cell", "class_rete_core_1_1_cell.html", [
         [ "ReteEngine.CriticalCell", "class_rete_engine_1_1_critical_cell.html", null ],
         [ "ReteEngine.Inventory", "class_rete_engine_1_1_inventory.html", null ],
+        [ "ReteEngine.Officer", "class_rete_engine_1_1_officer.html", null ],
+        [ "ReteEngine.Order", "class_rete_engine_1_1_order.html", null ],
         [ "ReteEngine.Product", "class_rete_engine_1_1_product.html", null ],
-        [ "ReteEngine.Shipment", "class_rete_engine_1_1_shipment.html", null ],
-        [ "ReteEngine.TestEval", "class_rete_engine_1_1_test_eval.html", null ]
+        [ "ReteEngine.Shipment", "class_rete_engine_1_1_shipment.html", null ]
       ] ],
       [ "ReteCore.Fact< T >", "class_rete_core_1_1_fact-1-g.html", null ]
     ] ],

@@ -10,8 +10,8 @@ Provides a fluent interface for constructing and configuring rules in a Rete-\/b
 \item 
 \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}} (\doxymbox{\hyperlink{class_rete_engine_1_1_rete_engine}{Rete\+Engine}} engine, string name)
 \begin{DoxyCompactList}\small\item\em Initializes a new instance of the Rule\+Builder class with the specified Rete engine and rule name. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_ad87ecf18d8871d3925095b99fa949600}{Match$<$ T $>$}} (string name, string? debug\+Label=null, Func$<$ T, bool $>$ initial\+Condition=null)
-\begin{DoxyCompactList}\small\item\em Adds a match condition for facts of the specified type to the rule being built. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a64132fa5a015e68973596c2bbce2d504}{Where$<$ T $>$}} (string name, string? debug\+Label=null, Func$<$ T, bool $>$ initial\+Condition=null)
+\begin{DoxyCompactList}\small\item\em Adds a typed fact with an optional condition to the rule being built. This method creates an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} node for the specified type T and connects it to the current rule chain. If an initial condition is provided, it will be used to filter facts of type T as they are asserted into the \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}. The name parameter is used to identify this match condition within the rule, allowing it to be referenced in subsequent conditions or actions. If a debug label is provided, diagnostic output will be written to the console when the type is added. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a40c8b6c0a56cff4dcd6865990db3a8e1}{And$<$ T $>$}} (string name, Func$<$ \doxymbox{\hyperlink{class_rete_core_1_1_token}{Token}}, T, bool $>$ join\+Condition, string? debug\+Label=null)
 \begin{DoxyCompactList}\small\item\em Adds a join condition to the rule, requiring that both the previous conditions and the specified join condition are satisfied for a fact to match. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ \doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a5947f2aad238f8d9626f13ac76cee9df}{Or$<$ T $>$}} (string name, string? debug\+Label=null, params Func$<$ \doxymbox{\hyperlink{class_rete_core_1_1_token}{Token}}, T, bool $>$\+[$\,$]\+ or\+Conditions)
@@ -176,38 +176,11 @@ Use this method to extend the rule network by specifying additional join conditi
 \begin{DoxyParams}{Parameters}
 {\em next\+Alpha} & The alpha memory node to join with the current beta memory. Cannot be null.\\
 \hline
-{\em condition} & A function that determines whether a token from the beta memory and a fact from the alpha memory should be joined. Returns {\ttfamily true} to join the pair; otherwise, {\ttfamily false}.\\
+{\em condition} & A function that determines whether a token from the beta memory and a fact from the alpha memory should be joined. Returns {\ttfamily true} to join the pair; otherwise, {\ttfamily false}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The current \doxylink{class_rete_engine_1_1_rete_builder-1-g}{Rete\+Builder$<$\+TInitial$>$} instance, enabling method chaining.
-\end{DoxyReturn}
-\Hypertarget{class_rete_engine_1_1_rete_builder-1-g_ad87ecf18d8871d3925095b99fa949600}\index{ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}!Match$<$ T $>$@{Match$<$ T $>$}}
-\index{Match$<$ T $>$@{Match$<$ T $>$}!ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}}
-\doxysubsubsection{\texorpdfstring{Match$<$ T $>$()}{Match< T >()}}
-{\footnotesize\ttfamily \label{class_rete_engine_1_1_rete_builder-1-g_ad87ecf18d8871d3925095b99fa949600} 
-\doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ Rete\+Engine.\+Rete\+Builder$<$ TInitial $>$.Match$<$ T $>$ (\begin{DoxyParamCaption}\item[{string}]{name}{, }\item[{string?}]{debug\+Label}{ = {\ttfamily null}, }\item[{Func$<$ T, bool $>$}]{initial\+Condition}{ = {\ttfamily null}}\end{DoxyParamCaption})}
-
-
-
-Adds a match condition for facts of the specified type to the rule being built. 
-
-Use this method to specify that the rule should match facts of type T. Multiple calls to Match can be chained to build more complex rules. The name parameter is used to reference this match in subsequent rule conditions or actions.
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The type of fact to match in the rule.\\
-\hline
-\end{DoxyTemplParams}
-
-\begin{DoxyParams}{Parameters}
-{\em name} & The name used to identify this match condition within the rule. Cannot be null or empty.\\
-\hline
-{\em debug\+Label} & An optional label used for debugging purposes. If specified, diagnostic output will be written when the match is added.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The current Rete\+Builder instance, enabling further configuration of the rule.
 \end{DoxyReturn}
 \Hypertarget{class_rete_engine_1_1_rete_builder-1-g_a2eb33d7133d55771a24cf753edbf5ffd}\index{ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}!Not$<$ T $>$@{Not$<$ T $>$}}
 \index{Not$<$ T $>$@{Not$<$ T $>$}!ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}}
@@ -366,6 +339,35 @@ Use trace nodes to monitor or debug the flow of facts through the rule network. 
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The current \doxylink{class_rete_engine_1_1_rete_builder-1-g}{Rete\+Builder$<$\+TInitial$>$} instance, allowing for method chaining.
+\end{DoxyReturn}
+\Hypertarget{class_rete_engine_1_1_rete_builder-1-g_a64132fa5a015e68973596c2bbce2d504}\index{ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}!Where$<$ T $>$@{Where$<$ T $>$}}
+\index{Where$<$ T $>$@{Where$<$ T $>$}!ReteEngine.ReteBuilder$<$ TInitial $>$@{ReteEngine.ReteBuilder$<$ TInitial $>$}}
+\doxysubsubsection{\texorpdfstring{Where$<$ T $>$()}{Where< T >()}}
+{\footnotesize\ttfamily \label{class_rete_engine_1_1_rete_builder-1-g_a64132fa5a015e68973596c2bbce2d504} 
+\doxymbox{\hyperlink{class_rete_engine_1_1_rete_builder-1-g_a6d5b7d1ea2696cc4a6b00e8e4167c0cd}{Rete\+Builder}}$<$ TInitial $>$ Rete\+Engine.\+Rete\+Builder$<$ TInitial $>$.Where$<$ T $>$ (\begin{DoxyParamCaption}\item[{string}]{name}{, }\item[{string?}]{debug\+Label}{ = {\ttfamily null}, }\item[{Func$<$ T, bool $>$}]{initial\+Condition}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+Adds a typed fact with an optional condition to the rule being built. This method creates an \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory} node for the specified type T and connects it to the current rule chain. If an initial condition is provided, it will be used to filter facts of type T as they are asserted into the \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}. The name parameter is used to identify this match condition within the rule, allowing it to be referenced in subsequent conditions or actions. If a debug label is provided, diagnostic output will be written to the console when the type is added. 
+
+Use this method to specify that the rule should match facts of type T. Multiple calls to Where can be chained to build more complex rules. The name parameter is used to reference this type in subsequent rule conditions or actions.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of fact to match in the rule.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name used to identify this match condition within the rule. Cannot be null or empty.\\
+\hline
+{\em debug\+Label} & An optional label used for debugging purposes. If specified, diagnostic output will be written when the type is added.\\
+\hline
+{\em initial\+Condition} & A function that defines an optional initial condition to filter facts of type T as they are asserted into the \doxylink{class_rete_core_1_1_alpha_memory}{Alpha\+Memory}. The rule stops at this point if this initial condition is not satisfied.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current Rete\+Builder instance, enabling further configuration of the rule.
 \end{DoxyReturn}
 
 
