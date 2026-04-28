@@ -44,8 +44,8 @@ Use the Fluent Builder to define your domain logic.
 ```csharp
 var engine = new ReteEngine();
 
-engine.CreateRule("BubbleUpCompletion")
-    .Match<Task>("BubbleTask", parent => parent.Status == "Incomplete")
+engine.Begin("BubbleUpCompletion")
+    .Given<Task>("BubbleTask", parent => parent.Status == "Incomplete")
     // Ensure the parent has children
     .Exists<Task>("BubbleTask", (child, parent) => child.ParentId == parent.Id)
     // Only fire when NO children are still incomplete (Recursive Return)
@@ -53,7 +53,8 @@ engine.CreateRule("BubbleUpCompletion")
     .Then(match => {
         var parent = match.Get<Task>("BubbleTask");
         // Automatic Retraction handles the state swap
-        engine.Update(parent with { Status = "Complete" });
+        parent.Status = "Complete";
+        engine.Update(parent);
     });
 ```
 You can define multiple rules in the engine with different chains of conditions and assign separate actions for each.
