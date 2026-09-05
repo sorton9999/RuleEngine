@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="asciiraven.png"/></td>
   <td id="projectalign">
-   <div id="projectname">ReteRaven<span id="projectnumber">&#160;1.3</span>
+   <div id="projectname">ReteRaven<span id="projectnumber">&#160;1.3.1</span>
    </div>
    <div id="projectbrief">A Rete-based rules engine and builder</div>
   </td>
@@ -94,7 +94,7 @@ $(function(){initNavTree('class_rete_core_1_1_token.html','','class_rete_core_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine.  
+<p>Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine. <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> identity is stable (GUID-based) so it can be used safely as dictionary/set keys even if underlying facts mutate.  
  <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for ReteCore.Token:</div>
@@ -111,8 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a42e3ecfc938754383eb63b664e788315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> class by extending the specified parent token with an additional named fact.  <br /></td></tr>
 <tr class="memitem:a9f375ff2582a5b25e056a49613ca590e" id="r_a9f375ff2582a5b25e056a49613ca590e"><td class="memItemLeft">T&#160;</td><td class="memItemRight"><a class="el" href="#a9f375ff2582a5b25e056a49613ca590e">Get&lt; T &gt;</a> (string name)</td></tr>
 <tr class="memdesc:a9f375ff2582a5b25e056a49613ca590e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a fact by name and type from the collection.  <br /></td></tr>
-<tr class="memitem:ae3e6883f7dd2ba5e1052daf2942b4525" id="r_ae3e6883f7dd2ba5e1052daf2942b4525"><td class="memItemLeft"><a id="ae3e6883f7dd2ba5e1052daf2942b4525" name="ae3e6883f7dd2ba5e1052daf2942b4525"></a>
-override string&#160;</td><td class="memItemRight"><b>ToString</b> ()</td></tr>
+<tr class="memitem:ae3e6883f7dd2ba5e1052daf2942b4525" id="r_ae3e6883f7dd2ba5e1052daf2942b4525"><td class="memItemLeft">override string&#160;</td><td class="memItemRight"><a class="el" href="#ae3e6883f7dd2ba5e1052daf2942b4525">ToString</a> ()</td></tr>
+<tr class="memdesc:ae3e6883f7dd2ba5e1052daf2942b4525"><td class="mdescLeft">&#160;</td><td class="mdescRight">The overridden string output method.  <br /></td></tr>
 <tr class="memitem:a074cc2f178ec2212f0ec674abe785ed5" id="r_a074cc2f178ec2212f0ec674abe785ed5"><td class="memItemLeft"><a id="a074cc2f178ec2212f0ec674abe785ed5" name="a074cc2f178ec2212f0ec674abe785ed5"></a>
 bool&#160;</td><td class="memItemRight"><b>Equals</b> (<a class="el" href="#a8f29288b719ffe49dd9f870329f2ce11">Token</a>? other)</td></tr>
 <tr class="memitem:a26e11352edb3a65fa397a37695bf73e8" id="r_a26e11352edb3a65fa397a37695bf73e8"><td class="memItemLeft"><a id="a26e11352edb3a65fa397a37695bf73e8" name="a26e11352edb3a65fa397a37695bf73e8"></a>
@@ -129,8 +129,9 @@ static bool&#160;</td><td class="memItemRight"><b>operator!=</b> (<a class="el" 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ad361bc510849b289dfea963a81f5199a" id="r_ad361bc510849b289dfea963a81f5199a"><td class="memItemLeft">Dictionary&lt; string, object &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad361bc510849b289dfea963a81f5199a">NamedFacts</a> = new Dictionary&lt;string, object&gt;()<code> [get]</code></td></tr>
-<tr class="memdesc:ad361bc510849b289dfea963a81f5199a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a collection of named facts associated with the current instance.  <br /></td></tr>
+<tr class="memitem:ad361bc510849b289dfea963a81f5199a" id="r_ad361bc510849b289dfea963a81f5199a"><td class="memItemLeft"><a id="ad361bc510849b289dfea963a81f5199a" name="ad361bc510849b289dfea963a81f5199a"></a>
+Dictionary&lt; string, object &gt;&#160;</td><td class="memItemRight"><b>NamedFacts</b> = new Dictionary&lt;string, object&gt;()<code> [get]</code></td></tr>
+<tr class="memdesc:ad361bc510849b289dfea963a81f5199a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a collection of named facts associated with the current instance. <br /></td></tr>
 <tr class="memitem:ae137839a7a4f0083205e885f94ebeb55" id="r_ae137839a7a4f0083205e885f94ebeb55"><td class="memItemLeft"><a id="ae137839a7a4f0083205e885f94ebeb55" name="ae137839a7a4f0083205e885f94ebeb55"></a>
 <a class="el" href="#a8f29288b719ffe49dd9f870329f2ce11">Token</a>&#160;</td><td class="memItemRight"><b>Parent</b><code> [get, set]</code></td></tr>
 <tr class="memdesc:ae137839a7a4f0083205e885f94ebeb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or sets the parent token of this token. <br /></td></tr>
@@ -139,8 +140,7 @@ object&#160;</td><td class="memItemRight"><b>Fact</b><code> [get]</code></td></t
 <tr class="memdesc:a176e789694d2a69443acf707848f9992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the fact associated with this instance. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine. </p>
-<p>A <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> encapsulates a set of named facts and maintains a reference to its parent token, forming a linked structure that represents the progression of matched facts in a rule evaluation process. Tokens are typically used to accumulate and access facts as rules are matched and extended. Instances are considered equal if their facts and parent tokens are equal. This class is not thread-safe.</p>
+<div class="textblock"><p>Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine. <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> identity is stable (GUID-based) so it can be used safely as dictionary/set keys even if underlying facts mutate. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8f29288b719ffe49dd9f870329f2ce11" name="a8f29288b719ffe49dd9f870329f2ce11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f29288b719ffe49dd9f870329f2ce11">&#9670;&#160;</a></span>Token() <span class="overload">[1/2]</span></h2>
@@ -197,7 +197,6 @@ object&#160;</td><td class="memItemRight"><b>Fact</b><code> [get]</code></td></t
 </div><div class="memdoc">
 
 <p>Initializes a new instance of the <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> class by extending the specified parent token with an additional named fact. </p>
-<p>This constructor creates a new <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> that inherits all named facts from the parent token and adds a new fact under the specified name. The resulting <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> will contain all facts from the parent, plus the new fact.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>The parent <a class="el" href="class_rete_core_1_1_token.html" title="Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule e...">Token</a> whose named facts are to be copied and extended. Cannot be null.</td></tr>
@@ -226,13 +225,6 @@ object&#160;</td><td class="memItemRight"><b>Fact</b><code> [get]</code></td></t
 </div><div class="memdoc">
 
 <p>Retrieves a fact by name and type from the collection. </p>
-<p>If the fact exists but is not of type T, this method treats it as not found and throws a KeyNotFoundException.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The expected type of the fact to retrieve.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>The name of the fact to retrieve. Cannot be null.</td></tr>
@@ -249,29 +241,23 @@ object&#160;</td><td class="memItemRight"><b>Fact</b><code> [get]</code></td></t
 
 </div>
 </div>
-<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
-<a id="ad361bc510849b289dfea963a81f5199a" name="ad361bc510849b289dfea963a81f5199a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad361bc510849b289dfea963a81f5199a">&#9670;&#160;</a></span>NamedFacts</h2>
+<a id="ae3e6883f7dd2ba5e1052daf2942b4525" name="ae3e6883f7dd2ba5e1052daf2942b4525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e6883f7dd2ba5e1052daf2942b4525">&#9670;&#160;</a></span>ToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Dictionary&lt;string, object&gt; ReteCore.Token.NamedFacts = new Dictionary&lt;string, object&gt;()</td>
+          <td class="memname">override string ReteCore.Token.ToString </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel get">get</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Gets a collection of named facts associated with the current instance. </p>
-<p>The dictionary maps fact names to their corresponding values. The collection is read-only; to add or modify facts, use the provided methods or constructors of the containing class, if available.</p>
+<p>The overridden string output method. </p>
+<dl class="section return"><dt>Returns</dt><dd>The string representation of the object</dd></dl>
 
 </div>
 </div>

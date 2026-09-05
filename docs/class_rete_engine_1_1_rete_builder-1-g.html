@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="asciiraven.png"/></td>
   <td id="projectalign">
-   <div id="projectname">ReteRaven<span id="projectnumber">&#160;1.3</span>
+   <div id="projectname">ReteRaven<span id="projectnumber">&#160;1.3.1</span>
    </div>
    <div id="projectbrief">A Rete-based rules engine and builder</div>
   </td>
@@ -103,6 +103,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6d5b7d1ea2696cc4a6b00e8e4167c0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new instance of the RuleBuilder class with the specified Rete engine and rule name.  <br /></td></tr>
 <tr class="memitem:a64132fa5a015e68973596c2bbce2d504" id="r_a64132fa5a015e68973596c2bbce2d504"><td class="memItemLeft"><a class="el" href="#a6d5b7d1ea2696cc4a6b00e8e4167c0cd">ReteBuilder</a>&lt; TInitial &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a64132fa5a015e68973596c2bbce2d504">Where&lt; T &gt;</a> (string name, string? debugLabel=null, Func&lt; T, bool &gt; initialCondition=null)</td></tr>
 <tr class="memdesc:a64132fa5a015e68973596c2bbce2d504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a typed fact with an optional condition to the rule being built. This method creates an <a class="el" href="class_rete_core_1_1_alpha_memory.html" title="The AlphaMemory class represents a node in a Rete network that stores individual facts and propagates...">AlphaMemory</a> node for the specified type T and connects it to the current rule chain. If an initial condition is provided, it will be used to filter facts of type T as they are asserted into the <a class="el" href="class_rete_core_1_1_alpha_memory.html" title="The AlphaMemory class represents a node in a Rete network that stores individual facts and propagates...">AlphaMemory</a>. The name parameter is used to identify this match condition within the rule, allowing it to be referenced in subsequent conditions or actions. If a debug label is provided, diagnostic output will be written to the console when the type is added.  <br /></td></tr>
+<tr class="memitem:a60591b8639aeb68c3482f14e94e6770c" id="r_a60591b8639aeb68c3482f14e94e6770c"><td class="memItemLeft">IGroupBuilder&lt; TInitial &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a60591b8639aeb68c3482f14e94e6770c">Group&lt; TRightFact &gt;</a> (string alphaMemoryName)</td></tr>
+<tr class="memdesc:a60591b8639aeb68c3482f14e94e6770c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Groups facts of type TRightFact into the token under the specified alias. This method creates a GroupBuilder that allows for further configuration of the grouping operation.  <br /></td></tr>
 <tr class="memitem:a71f3e2d52a5afcf8caf9ed9549970d1f" id="r_a71f3e2d52a5afcf8caf9ed9549970d1f"><td class="memItemLeft"><a class="el" href="#a6d5b7d1ea2696cc4a6b00e8e4167c0cd">ReteBuilder</a>&lt; TInitial &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a71f3e2d52a5afcf8caf9ed9549970d1f">Priority</a> (int level)</td></tr>
 <tr class="memdesc:a71f3e2d52a5afcf8caf9ed9549970d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rule level priority determines the order in which rules are executed when multiple rules are eligible to fire. Higher priority values indicate that a rule should be executed before those with lower priority values. By default, the priority is set to 0, and rules with the same priority will be executed in the order they were added to the agenda. Use this method to explicitly set the priority of a rule, allowing you to control the execution order when there are competing rules that could fire at the same time. This is particularly useful in scenarios where certain rules must take precedence over others based on business logic or specific conditions.  <br /></td></tr>
 <tr class="memitem:a6f9bec33e5aaa5d18e011ffd6e5df06c" id="r_a6f9bec33e5aaa5d18e011ffd6e5df06c"><td class="memItemLeft"><a class="el" href="#a6d5b7d1ea2696cc4a6b00e8e4167c0cd">ReteBuilder</a>&lt; TInitial &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6f9bec33e5aaa5d18e011ffd6e5df06c">First</a> ()</td></tr>
@@ -417,6 +419,38 @@ string&#160;</td><td class="memItemRight"><b>RuleName</b><code> [get]</code></td
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a60591b8639aeb68c3482f14e94e6770c" name="a60591b8639aeb68c3482f14e94e6770c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60591b8639aeb68c3482f14e94e6770c">&#9670;&#160;</a></span>Group&lt; TRightFact &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IGroupBuilder&lt; TInitial &gt; ReteEngine.ReteBuilder&lt; TInitial &gt;.Group&lt; TRightFact &gt; </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>alphaMemoryName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Groups facts of type TRightFact into the token under the specified alias. This method creates a GroupBuilder that allows for further configuration of the grouping operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TRightFact</td><td>The type of fact to group.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alphaMemoryName</td><td>The name of the <a class="el" href="class_rete_core_1_1_alpha_memory.html" title="The AlphaMemory class represents a node in a Rete network that stores individual facts and propagates...">AlphaMemory</a> containing the facts to group.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The current <a class="el" href="interface_rete_engine_1_1_i_group_builder-1-g.html" title="A interface for building group operations in a Rete network. It allows the user to define conditions ...">IGroupBuilder&lt;TInitial&gt;</a> to continue building the group.</dd></dl>
 
 </div>
 </div>

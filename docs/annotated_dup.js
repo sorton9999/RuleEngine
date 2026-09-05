@@ -3,6 +3,8 @@ var annotated_dup =
     [ "ReteCore", "namespace_rete_core.html", [
       [ "Activation", "class_rete_core_1_1_activation.html", "class_rete_core_1_1_activation" ],
       [ "Agenda", "class_rete_core_1_1_agenda.html", "class_rete_core_1_1_agenda" ],
+      [ "AggregationGroupNode", "class_rete_core_1_1_aggregation_group_node.html", "class_rete_core_1_1_aggregation_group_node" ],
+      [ "FactSnapshot", "struct_rete_core_1_1_fact_snapshot.html", "struct_rete_core_1_1_fact_snapshot" ],
       [ "AllNode", "class_rete_core_1_1_all_node.html", "class_rete_core_1_1_all_node" ],
       [ "AlphaConditionNode&lt; T &gt;", "class_rete_core_1_1_alpha_condition_node-1-g.html", "class_rete_core_1_1_alpha_condition_node-1-g" ],
       [ "AlphaMemory", "class_rete_core_1_1_alpha_memory.html", "class_rete_core_1_1_alpha_memory" ],
@@ -32,6 +34,8 @@ var annotated_dup =
       [ "IEvaluationBuilder", "interface_rete_engine_1_1_i_evaluation_builder.html", null ],
       [ "IAggregationBuilder", "interface_rete_engine_1_1_i_aggregation_builder.html", null ],
       [ "FluentConverter&lt; TInitial &gt;", "class_rete_engine_1_1_fluent_converter-1-g.html", "class_rete_engine_1_1_fluent_converter-1-g" ],
+      [ "IGroupBuilder&lt; TInitial &gt;", "interface_rete_engine_1_1_i_group_builder-1-g.html", null ],
+      [ "GroupBuilder&lt; TInitial, TRightFact &gt;", "class_rete_engine_1_1_group_builder-2-g.html", null ],
       [ "JoinKeyExtractor", "class_rete_engine_1_1_join_key_extractor.html", "class_rete_engine_1_1_join_key_extractor" ],
       [ "ReteBuilder&lt; TInitial &gt;", "class_rete_engine_1_1_rete_builder-1-g.html", "class_rete_engine_1_1_rete_builder-1-g" ],
       [ "ReteEngine", "class_rete_engine_1_1_rete_engine.html", "class_rete_engine_1_1_rete_engine" ]

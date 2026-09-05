@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "ReteCore.Agenda", "class_rete_core_1_1_agenda.html", null ],
+    [ "ReteCore.FactSnapshot", "struct_rete_core_1_1_fact_snapshot.html", null ],
     [ "ReteEngine.IAggregationBuilder", "interface_rete_engine_1_1_i_aggregation_builder.html", [
       [ "ReteEngine.FluentConverter< TInitial >", "class_rete_engine_1_1_fluent_converter-1-g.html", null ]
     ] ],
@@ -15,6 +16,9 @@ var hierarchy =
     ] ],
     [ "ReteCore.IFact", "interface_rete_core_1_1_i_fact.html", [
       [ "ReteCore.Fact< T >", "class_rete_core_1_1_fact-1-g.html", null ]
+    ] ],
+    [ "ReteEngine.IGroupBuilder&lt; TInitial &gt;", "interface_rete_engine_1_1_i_group_builder-1-g.html", [
+      [ "ReteEngine.GroupBuilder< TInitial, TRightFact >", "class_rete_engine_1_1_group_builder-2-g.html", null ]
     ] ],
     [ "ReteCore.ILatentMemory", "interface_rete_core_1_1_i_latent_memory.html", [
       [ "ReteCore.BetaMemory", "class_rete_core_1_1_beta_memory.html", null ],
@@ -34,6 +38,7 @@ var hierarchy =
       [ "ReteCore.Fact< T >", "class_rete_core_1_1_fact-1-g.html", null ]
     ] ],
     [ "ReteCore.IReteNode", "interface_rete_core_1_1_i_rete_node.html", [
+      [ "ReteCore.AggregationGroupNode", "class_rete_core_1_1_aggregation_group_node.html", null ],
       [ "ReteCore.AllNode", "class_rete_core_1_1_all_node.html", null ],
       [ "ReteCore.AlphaConditionNode< T >", "class_rete_core_1_1_alpha_condition_node-1-g.html", null ],
       [ "ReteCore.AlphaMemory", "class_rete_core_1_1_alpha_memory.html", null ],

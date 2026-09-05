@@ -2,6 +2,8 @@ var namespace_rete_core =
 [
     [ "Activation", "class_rete_core_1_1_activation.html", "class_rete_core_1_1_activation" ],
     [ "Agenda", "class_rete_core_1_1_agenda.html", "class_rete_core_1_1_agenda" ],
+    [ "AggregationGroupNode", "class_rete_core_1_1_aggregation_group_node.html", "class_rete_core_1_1_aggregation_group_node" ],
+    [ "FactSnapshot", "struct_rete_core_1_1_fact_snapshot.html", "struct_rete_core_1_1_fact_snapshot" ],
     [ "AllNode", "class_rete_core_1_1_all_node.html", "class_rete_core_1_1_all_node" ],
     [ "AlphaConditionNode&lt; T &gt;", "class_rete_core_1_1_alpha_condition_node-1-g.html", "class_rete_core_1_1_alpha_condition_node-1-g" ],
     [ "AlphaMemory", "class_rete_core_1_1_alpha_memory.html", "class_rete_core_1_1_alpha_memory" ],

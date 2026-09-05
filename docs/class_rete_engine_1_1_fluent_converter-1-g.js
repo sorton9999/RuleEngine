@@ -4,10 +4,13 @@ var class_rete_engine_1_1_fluent_converter_1_g =
     [ "And", "class_rete_engine_1_1_fluent_converter-1-g.html#a60940d589be5cd0435c1efcdfab60563", null ],
     [ "And< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#a5f3862d3bb51fed630e70d3ed02cefa0", null ],
     [ "AndNot< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ac4bee10c20f8cf4a88113dd1574f78e0", null ],
+    [ "Average< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ad5a793e4a11402218b569b7f08672870", null ],
+    [ "Count< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ab183bb2ca4c49c866e4a59bd0acc1513", null ],
     [ "Exists< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#a3f125a77c9d25bbb8795a09c69722380", null ],
     [ "First", "class_rete_engine_1_1_fluent_converter-1-g.html#acd1c4c5aad87980de05018e834194972", null ],
     [ "FluentConverter", "class_rete_engine_1_1_fluent_converter-1-g.html#ac1d2fa685d208e842b0284030ad4e8ca", null ],
     [ "From< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ae2e32fa3756079096f2bd55fc04a9fd7", null ],
+    [ "Group< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#abcbe5b163a969113177d41c62a7bd0d7", null ],
     [ "If", "class_rete_engine_1_1_fluent_converter-1-g.html#a6fb889a5c0f2e8bd89c906e3704a506d", null ],
     [ "If< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ab9bb36dd56a2e3b293cdb33cf2686179", null ],
     [ "JoinWith< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ae95486a004001cc375689a72cc71bec8", null ],
@@ -18,6 +21,9 @@ var class_rete_engine_1_1_fluent_converter_1_g =
     [ "Or< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#abfc38b7bffeb80db68f01ff0aeddd232", null ],
     [ "Priority", "class_rete_engine_1_1_fluent_converter-1-g.html#ad741e1abcf0e74eacf2958192261084c", null ],
     [ "StartWith< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#a75e8af42e68e6be433f763e940abe8d7", null ],
+    [ "Sum< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#a274c152ef37e05ba63e574011af103ac", null ],
+    [ "Sum< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ab2438196e27a1867b5357510704ac36d", null ],
     [ "Then", "class_rete_engine_1_1_fluent_converter-1-g.html#ab5310deedc0c70da2568a9d6215dcfc7", null ],
+    [ "Where< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#ab9c2f1ea7457486e7a1d834b39c6ce61", null ],
     [ "Where< T >", "class_rete_engine_1_1_fluent_converter-1-g.html#a5eca80cc2e3dcbbb91f37486bf31ae4d", null ]
 ];

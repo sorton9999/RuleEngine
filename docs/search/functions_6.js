@@ -3,5 +3,7 @@ var searchData=
   ['generateactivationkey_0',['GenerateActivationKey',['../class_rete_core_1_1_agenda.html#a86faf96251b4be8b8310c28a09752fda',1,'ReteCore::Agenda']]],
   ['get_3c_20t_20_3e_1',['Get&lt; T &gt;',['../class_rete_core_1_1_token.html#a9f375ff2582a5b25e056a49613ca590e',1,'ReteCore::Token']]],
   ['getalphamemory_3c_20t_20_3e_2',['GetAlphaMemory&lt; T &gt;',['../class_rete_engine_1_1_rete_engine.html#a7b0c9639fc6104e43b47d4a33a347b69',1,'ReteEngine::ReteEngine']]],
-  ['gethashcode_3',['GetHashCode',['../class_rete_core_1_1_fact-1-g.html#a31eeb76a84bc1cc15253998e012289c5',1,'ReteCore.Fact-1-g.GetHashCode()'],['../class_rete_core_1_1_cell.html#a8d01e5bed934c3e2df94d7dcccddde8f',1,'ReteCore.Cell.GetHashCode()']]]
+  ['gethashcode_3',['GetHashCode',['../class_rete_core_1_1_fact-1-g.html#a31eeb76a84bc1cc15253998e012289c5',1,'ReteCore.Fact-1-g.GetHashCode()'],['../class_rete_core_1_1_cell.html#a8d01e5bed934c3e2df94d7dcccddde8f',1,'ReteCore.Cell.GetHashCode()']]],
+  ['group_3c_20t_20_3e_4',['Group&lt; T &gt;',['../class_rete_engine_1_1_fluent_converter-1-g.html#abcbe5b163a969113177d41c62a7bd0d7',1,'ReteEngine::FluentConverter-1-g']]],
+  ['group_3c_20trightfact_20_3e_5',['Group&lt; TRightFact &gt;',['../class_rete_engine_1_1_rete_builder-1-g.html#a60591b8639aeb68c3482f14e94e6770c',1,'ReteEngine::ReteBuilder-1-g']]]
 ];
