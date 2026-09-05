@@ -19,13 +19,14 @@ namespace ReteCore
 {
     /// <summary>
     /// Represents a chain of named facts used to track the state and ancestry of rule evaluation in a rule engine.
+    /// Token identity is stable (GUID-based) so it can be used safely as dictionary/set keys even if underlying facts mutate.
     /// </summary>
-    /// <remarks>A Token encapsulates a set of named facts and maintains a reference to its parent token,
-    /// forming a linked structure that represents the progression of matched facts in a rule evaluation process. Tokens
-    /// are typically used to accumulate and access facts as rules are matched and extended. Instances are considered
-    /// equal if their facts and parent tokens are equal. This class is not thread-safe.</remarks>
     public class Token : IEquatable<Token>
     {
+        /// <summary>
+        /// A unique identifier for this token instaance.
+        /// </summary>
+        private readonly Guid _id = Guid.NewGuid(); // stable identity
         /// <summary>
         /// The current fact associated with this token. This is the most recently added fact in the 
         /// chain of facts represented by this token.
@@ -34,9 +35,6 @@ namespace ReteCore
         /// <summary>
         /// Gets a collection of named facts associated with the current instance.
         /// </summary>
-        /// <remarks>The dictionary maps fact names to their corresponding values. The collection is
-        /// read-only; to add or modify facts, use the provided methods or constructors of the containing class, if
-        /// available.</remarks>
         public Dictionary<string, object> NamedFacts { get; } = new Dictionary<string, object>();
 
         /// <summary>
@@ -55,9 +53,6 @@ namespace ReteCore
         /// Initializes a new instance of the Token class by extending the specified parent token with an additional
         /// named fact.
         /// </summary>
-        /// <remarks>This constructor creates a new Token that inherits all named facts from the parent
-        /// token and adds a new fact under the specified name. The resulting Token will contain all facts from the
-        /// parent, plus the new fact.</remarks>
         /// <param name="parent">The parent Token whose named facts are to be copied and extended. Cannot be null.</param>
         /// <param name="nextName">The name to associate with the new fact being added. Cannot be null or empty.</param>
         /// <param name="newFact">The fact object to associate with the specified name. Can be any object.</param>
@@ -84,9 +79,6 @@ namespace ReteCore
         /// <summary>
         /// Retrieves a fact by name and type from the collection.
         /// </summary>
-        /// <remarks>If the fact exists but is not of type T, this method treats it as not found and
-        /// throws a KeyNotFoundException.</remarks>
-        /// <typeparam name="T">The expected type of the fact to retrieve.</typeparam>
         /// <param name="name">The name of the fact to retrieve. Cannot be null.</param>
         /// <returns>The fact associated with the specified name, cast to type T.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if a fact with the specified name and type T does not exist in the collection.</exception>
@@ -99,10 +91,14 @@ namespace ReteCore
             throw new KeyNotFoundException($"Fact named '{name}' of type {typeof(T).Name} was not found.");
         }
 
+        /// <summary>
+        /// The overridden string output method
+        /// </summary>
+        /// <returns>The string representation of the object</returns>
         public override string ToString()
         {
             var factDescriptions = NamedFacts.Select(kv => $"{kv.Key}:{kv.Value}");
-            return $"Token({string.Join(", ", factDescriptions)})";
+            return $"Token({_id} : {string.Join(", ", factDescriptions)})";
         }
 
         #region IEquatable overrides
@@ -110,22 +106,20 @@ namespace ReteCore
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(this, other) && Equals(Parent, other.Parent);
+            return _id.Equals(other._id);
         }
 
         public override bool Equals(object? obj)
         {
-            return base.Equals(obj);
+            return obj is Token token && Equals(token);
         }
         #endregion
 
         public override int GetHashCode()
         {
-            int parentHash = Parent?.GetHashCode() ?? 0;
-            int factHash = _fact?.GetHashCode() ?? 0;
-            //Console.WriteLine($"Calculating hash for Token: ParentHash={parentHash}, FactHash={factHash}");
-            return HashCode.Combine(parentHash, factHash);
+            return _id.GetHashCode();
         }
+
         public static bool operator ==(Token? left, Token? right) => Equals(left, right);
         public static bool operator !=(Token? left, Token? right) => !Equals(left, right);
 

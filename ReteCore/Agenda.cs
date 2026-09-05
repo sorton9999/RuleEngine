@@ -126,7 +126,7 @@ namespace ReteCore
                 if (_firedActivationsRegistry.Contains(keyFacts))
                 {
                     Console.WriteLine($"[AGENDA] Skipping activation of rule '{activation.RuleName}' with facts [{keyFacts}] as it has already been fired.");
-                    activation.State = Activation.ActivationState.Cancelled; // Mark it so FirstOrDefault skips it next time
+                    activation.State = Activation.ActivationState.Cancelled;
                     continue;
                 }
 
@@ -136,8 +136,7 @@ namespace ReteCore
                 activation.State = Activation.ActivationState.Fired;
                 _firedActivationsRegistry.Add(keyFacts);
 
-                // This will safely append ApplyShipment as 'Pending' to the end of the collection,
-                // and our FirstOrDefault() will seamlessly grab it on the very next loop iteration.
+                // This will safely append to the end of the collection
                 activation.Fire();
             }
         }
@@ -161,7 +160,31 @@ namespace ReteCore
         /// <returns>A unique key representing the activation.</returns>
         public string GenerateActivationKey(Activation activation)
         {
-            string keyFacts = string.Join(", ", activation.Match.NamedFacts.Select(kv => $"{kv.Key}={(kv.Value as Cell)?.Id}"));
+            // Build a stable textual representation for each named fact:
+            // - If the fact is a Cell, use its Id (stable identity).
+            // - If the fact is a Token, use the token's stable ToString() (Token exposes its id).
+            // - If the fact is an enumerable, join its element representations.
+            // - Otherwise fall back to the fact's ToString() (or "null").
+            string FormatValue(object? v)
+            {
+                if (v == null) return "null";
+                if (v is Cell c) return c.Id.ToString();
+                if (v is Token t) return t.ToString();
+                if (v is System.Collections.IEnumerable ie && !(v is string))
+                {
+                    var parts = new List<string>();
+                    foreach (var item in ie)
+                    {
+                        parts.Add(FormatValue(item));
+                    }
+                    return $"[{string.Join(";", parts)}]";
+                }
+                return v.ToString() ?? "null";
+            }
+
+            var keyFacts = string.Join(", ", activation.Match.NamedFacts.Select(kv =>
+                $"{kv.Key}={FormatValue(kv.Value)}"
+            ));
             return $"{activation.RuleName}_{keyFacts}";
         }
     }

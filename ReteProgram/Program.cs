@@ -269,8 +269,8 @@ engine7.Assert(criticalCell2)
 
 var engine8 = new ReteEngine.ReteEngine();
 
-engine8.Begin("Alert_Out_of_Stock_Electronics")
-    .Where<Product>("P", (c) => c.Category == "Electronics")
+engine8.Begin("Alert_Out_of_Stock")
+    .Where<Product>("P", (c) => c.Category == "Sports")
     .Not<Inventory>("P", (t, i) => i.ProductId == t.Get<Product>("P").ProductId)
     .Then(terminal =>
     {
@@ -326,6 +326,14 @@ Product product3 = new Product()
     Category = "Sports",
     Price = 25
 };
+Product product4 = new Product()
+{
+    Id = Guid.NewGuid(),
+    ProductId = 12350,
+    Name = "Jarts",
+    Category = "Sports",
+    Price = 25
+};
 Inventory inventory = new Inventory()
 {
     Id = Guid.NewGuid(),
@@ -343,10 +351,17 @@ Inventory inventory2 = new Inventory()
 Inventory inventory3 = new Inventory()
 {
     Id = Guid.NewGuid(),
-    ProductId = 12349,
+    ProductId = 12350,
     Quantity = 0,
     WarehouseLocation = "Aisle 1"
 };
+Inventory inventory4 = new Inventory()
+{
+    Id = Guid.NewGuid(),
+    ProductId = 12345,
+    Quantity = 2,
+    WarehouseLocation = "Aisle 5"
+}; 
 Shipment shipment = new Shipment()
 {
     Id = Guid.NewGuid(),
@@ -359,8 +374,14 @@ Shipment shipment2 = new Shipment()
     ProductId = 888899,
     Status = "Pending"
 };
+Shipment shipment3 = new Shipment()
+{
+    Id = Guid.NewGuid(),
+    ProductId = 12345,
+    Status = "Pending"
+};
 
-engine8.Assert(product, product2, product3, inventory, inventory2, inventory3, shipment, shipment2)
+engine8.Assert(product, product2, product3, product4, inventory, inventory2, inventory3, inventory4, shipment, shipment2, shipment3)
     .FireAll();
 Console.WriteLine("Changing shipment status to Pending...");
 shipment.Status = "Pending";
@@ -552,4 +573,49 @@ engineB.FireAll();
 
 Console.WriteLine($"Late Rule Fired after Refresh: {lateRuleFired}");
 
+Console.WriteLine("\n--- Testing Grouping and Aggregation ---");
+var engineC = new ReteEngine.ReteEngine();
+engineC.Begin("GroupAndAggregate")
+    .Where<Product>("P", p => p.Category == "Electronics")
+    // 1. Group opens up cleanly with just the alias target
+    .Group<Inventory>("Products")
+        // 2. Types are cleanly defined per-step
+        .Where<Inventory>((t, i) => i.ProductId == t.Get<Product>("P").ProductId)
+        .Sum<Inventory>(i => i.Quantity, "InventoryCount")
 
+    .Then(t => {
+        var product = t.Get<Product>("P");
+        var count = t.Get<int>("InventoryCount");
+        Console.WriteLine($"Product '{product.Name}' has {count} inventory items.");
+    });
+engineC.Assert(product, product2, product3, product4, inventory, inventory2, inventory3, inventory4)
+    .FireAll();
+
+
+var engineD = new ReteEngine.ReteEngine();
+int finalRecordedCount = -1;
+
+engineD.Begin("DynamicRefreshTest")
+    .Where<Product>("P", p => p.Category == "Electronics")
+    .Group<Inventory>("Products")
+        .Where<Inventory>((t, i) => i.ProductId == t.Get<Product>("P").ProductId)
+        .Sum<Inventory>(i => i.Quantity, "InventoryCount")
+    .Then(t => {
+        finalRecordedCount = t.Get<int>("InventoryCount");
+    });
+
+var tvProduct = new Product { Id = Guid.NewGuid(), ProductId = 555, Name = "Smart Hub", Category = "Electronics" };
+var tvInventory = new Inventory { Id = Guid.NewGuid(), ProductId = 555, Quantity = 10 };
+
+engineD.Assert(tvInventory);
+engineD.Assert(tvProduct);
+engineD.FireAll();
+
+Console.WriteLine($"Initial Inventory Count: {finalRecordedCount}");  // Should print 10
+
+// Act: Modify the entity property and fire your Rete engine's Refresh pipeline
+tvInventory.Quantity = 15;
+engineD.Refresh(tvInventory, "Products");
+engineD.FireAll();
+
+Console.WriteLine($"Updated Inventory Count: {finalRecordedCount}");  // Should print 15

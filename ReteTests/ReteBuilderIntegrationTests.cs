@@ -676,6 +676,192 @@ namespace ReteTest.Tests
             Assert.Equal(ActivationState.Fired, loggedActivation.State);
         }
 
+
+        // Mock classes matching your domain entities
+        public class GProduct
+        {
+            public int ProductId { get; set; }
+            public string Name { get; set; } = "";
+            public string Category { get; set; } = "";
+        }
+
+        public class GInventory
+        {
+            public int ProductId { get; set; }
+            public int Quantity { get; set; }
+        }
+
+        [Fact]
+        public void Group_ShouldBeIndependentOfAssertionOrder_WhenRightAssertedFirstOrLeftAssertedFirst()
+        {
+            // Arrange
+            var engine = new ReteEngine.ReteEngine();
+            int ruleExecutionCount = 0;
+            int finalRecordedCount = -1;
+
+            engine.Begin("OrderIndependenceTest")
+                .Where<GProduct>("P", p => p.Category == "Electronics")
+                .Group<GInventory>("Products")
+                    .Where<GInventory>((t, i) => i.ProductId == t.Get<GProduct>("P").ProductId)
+                    .Sum<GInventory>(i => i.Quantity, "InventoryCount")
+                .Then(t => {
+                    ruleExecutionCount++;
+                    finalRecordedCount = t.Get<int>("InventoryCount");
+                });
+
+            var tvProduct = new GProduct { ProductId = 12345, Name = "4K TV", Category = "Electronics" };
+            var tvInventory = new GInventory { ProductId = 12345, Quantity = 5 };
+
+            // Act & Assert Part A: Assert Right Side (Inventory) BEFORE Left Side (Product)
+            engine.Assert(tvInventory);
+            engine.Assert(tvProduct);
+            engine.FireAll();
+
+            Assert.Equal(1, ruleExecutionCount);
+            Assert.Equal(5, finalRecordedCount);
+
+            // Reset tracking variables for Part B
+            ruleExecutionCount = 0;
+            finalRecordedCount = -1;
+            var engineSecondRun = new ReteEngine.ReteEngine();
+
+            engineSecondRun.Begin("OrderIndependenceTest_PartB")
+                .Where<GProduct>("P", p => p.Category == "Electronics")
+                .Group<GInventory>("Products")
+                    .Where<GInventory>((t, i) => i.ProductId == t.Get<GProduct>("P").ProductId)
+                    .Sum<GInventory>(i => i.Quantity, "InventoryCount")
+                .Then(t => {
+                    ruleExecutionCount++;
+                    finalRecordedCount = t.Get<int>("InventoryCount");
+                });
+
+            // Act & Assert Part B: Assert Left Side (Product) BEFORE Right Side (Inventory)
+            // This validates that your new UpdateAndPropagate Retract/Assert loop pushes updates
+            engineSecondRun.Assert(tvProduct);   // Hits node first, initial count is 0
+            engineSecondRun.Assert(tvInventory); // Hits node second, increments count to 5
+            engineSecondRun.FireAll();
+
+            // Downstream memories should cleanly retract the 0-count token, 
+            // leaving exactly ONE final match activation with a count of 5.
+            Assert.Equal(5, finalRecordedCount);
+        }
+
+        [Fact]
+        public void Group_ShouldProduceZero_WhenNoMatchingInventoryExists()
+        {
+            // Arrange
+            var engine = new ReteEngine.ReteEngine();
+            int finalRecordedCount = -1;
+
+            engine.Begin("ZeroCountSafetyTest")
+                .Where<GProduct>("P", p => p.Category == "Electronics")
+                .Group<GInventory>("Products")
+                    .Where<GInventory>((t, i) => i.ProductId == t.Get<GProduct>("P").ProductId)
+                    .Sum<GInventory>(i => i.Quantity, "InventoryCount")
+                .Then(t => {
+                    finalRecordedCount = t.Get<int>("InventoryCount");
+                });
+
+            var tvProduct = new GProduct { ProductId = 99999, Name = "Isolated TV", Category = "Electronics" };
+
+            // Act: Assert a product that has absolutely zero inventory facts available
+            engine.Assert(tvProduct);
+            engine.FireAll();
+
+            // Assert: The fallback should cleanly register 0 instead of crashing or skipping evaluation
+            Assert.Equal(0, finalRecordedCount);
+        }
+
+        [Fact]
+        public void Group_ShouldDynamicallyUpdateDownstream_WhenInventoryQuantityChanges()
+        {
+            // Arrange
+            var engine = new ReteEngine.ReteEngine();
+            int finalRecordedCount = -1;
+
+            engine.Begin("DynamicRefreshTest")
+                .Where<GProduct>("P", p => p.Category == "Electronics")
+                .Group<GInventory>("Products")
+                    .Where<GInventory>((t, i) => i.ProductId == t.Get<GProduct>("P").ProductId)
+                    .Sum<GInventory>(i => i.Quantity, "InventoryCount")
+                .Then(t => {
+                    finalRecordedCount = t.Get<int>("InventoryCount");
+                });
+
+            var tvProduct = new GProduct { ProductId = 555, Name = "Smart Hub", Category = "Electronics" };
+            var tvInventory = new GInventory { ProductId = 555, Quantity = 10 };
+
+            engine.Assert(tvInventory);
+            engine.Assert(tvProduct);
+            engine.FireAll();
+
+            Assert.Equal(10, finalRecordedCount); // Initial verification
+
+            // Act: Modify the entity property and fire your Rete engine's Refresh pipeline
+            tvInventory.Quantity = 15;
+            engine.Refresh(tvInventory, "Products");
+            engine.FireAll();
+
+            // Assert: The network node must have intercepted the refresh, calculated 15,
+            // retracted the 10-count token, and updated the activation reference smoothly.
+            Assert.Equal(15, finalRecordedCount);
+        }
+
+
+        [Fact]
+        public void DownstreamRule_ShouldFireAndUnFire_WhenChildGroupingSumChanges()
+        {
+            // Arrange
+            var engine = new ReteEngine.ReteEngine();
+            int ruleExecutionCount = 0;
+
+            // Compile a rule that requires a threshold of EXACTLY 10 or more total items
+            engine.Begin("ThresholdDefensiveRule")
+                .Where<GProduct>("P", p => p.Category == "Electronics")
+                .Group<GInventory>("Products")
+                    .Where<GInventory>((t, i) => i.ProductId == t.Get<GProduct>("P").ProductId)
+                    .Sum<GInventory>(i => i.Quantity, "InventoryCount")
+                .And<GProduct>("P", (token, product) => token.Get<int>("InventoryCount") >= 10) // Downstream constraint
+                .Then(t => {
+                    ruleExecutionCount++;
+                });
+
+            var tvProduct = new GProduct { ProductId = 777, Name = "Control Console", Category = "Electronics" };
+            var warehouseA = new GInventory { ProductId = 777, Quantity = 6 };
+            var warehouseB = new GInventory { ProductId = 777, Quantity = 6 }; // Total = 12
+
+            // Act Step 1: Assert items so the sum is 12 (Above the >= 10 threshold)
+            engine.Assert(tvProduct);
+            engine.Assert(warehouseA);
+            engine.Assert(warehouseB);
+
+            // At this point, an activation SHOULD be sitting on your Agenda 
+            // because 12 >= 10. Do NOT call FireAllRules yet so we can test un-firing.
+
+            // Mutate a child fact to push the sum BELOW the threshold (6 + 2 = 8)
+            warehouseB.Quantity = 2;
+            engine.Refresh(warehouseB);
+
+            // The child update (12 -> 8) cascaded through the GroupingNode.
+            // It should have issued a Retract down to the trailing BetaMemory.
+            // The rule condition (8 >= 10) is now false, so the activation must be UN-FIRED (removed from the Agenda).
+            engine.FireAll();
+
+            // The rule should NOT have executed because it was retracted before firing!
+            Assert.Equal(0, ruleExecutionCount);
+
+            // Mutate the child fact to push the sum back ABOVE the threshold (6 + 9 = 15)
+            warehouseB.Quantity = 9;
+            engine.Refresh(warehouseB);
+
+            // The update (8 -> 15) cascades down. 15 >= 10 is true.
+            // The rule should re-fire and put a brand new activation back onto the Agenda.
+            engine.FireAll();
+
+            // The rule should have executed exactly once now.
+            Assert.Equal(1, ruleExecutionCount);
+        }
     }
+
 
 }

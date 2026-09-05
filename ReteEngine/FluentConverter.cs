@@ -41,6 +41,8 @@ namespace ReteEngine
 
         IEvaluationBuilder Where<T>(string name, Func<T, bool> initialCondition = null, 
             [CallerArgumentExpression(nameof(initialCondition))] string? debugLabel = null);
+        IAggregationBuilder Where<T>(Func<Token, T, bool> joinCondition);
+        IEvaluationBuilder Group<T>(string name);
         IEvaluationBuilder StartWith<T>(AlphaMemory alpha, string factName);
         IEvaluationBuilder Not<T>(string name, Func<Token, T, bool> joinCondition, 
             [CallerArgumentExpression(nameof(joinCondition))] string? debugLabel = null);
@@ -80,6 +82,8 @@ namespace ReteEngine
     {
         IEvaluationBuilder Where<T>(string name, Func<T, bool> initialCondition = null, 
             [CallerArgumentExpression(nameof(initialCondition))] string? debugLabel = null);
+        IAggregationBuilder Where<T>(Func<Token, T, bool> joinCondition);
+        IEvaluationBuilder Group<T>(string name);
         IEvaluationBuilder JoinWith<T>(AlphaMemory nextAlpha, Func<Token, T, bool> condition);
         IEvaluationBuilder Exists<T>(string name, Func<Token, T, bool> joinCondition, 
             [CallerArgumentExpression(nameof(joinCondition))] string? debugLabel = null);
@@ -106,7 +110,12 @@ namespace ReteEngine
     /// </summary>
     public interface IAggregationBuilder
     {
+        IAggregationBuilder Where<T>(Func<Token, T, bool> joinCondition);
         IEvaluationBuilder All<T>(Func<IEnumerable<T>, bool> aggregatePredicate);
+        IEvaluationBuilder Sum<T>(Func<T, decimal> aggregatePredicate, string asVariableName);
+        IEvaluationBuilder Sum<T>(Func<T, int> aggregatePredicate, string asVariableName);
+        IEvaluationBuilder Average<T>(Func<T, decimal> aggregatePredicate, string asVariableName);
+        IEvaluationBuilder Count<T>(string asVariableName);
     }
 
     /// <summary>
@@ -123,6 +132,13 @@ namespace ReteEngine
         /// The ReteBuilder instance that is used internally to construct the rule based on the method calls made through the fluent interface.
         /// </summary>
         private ReteBuilder<TInitial> _builder;
+
+        /// <summary>
+        /// An instance to build group operations in the Rete network. It allows the user to define conditions for grouping facts and specify 
+        /// aggregation operations such as Sum, Count, and Average on the grouped data. The interface is generic and works with an initial 
+        /// fact type TInitial, while the specific type of facts being grouped is determined by the implementation.
+        /// </summary>
+        private IGroupBuilder<TInitial> _groupBuilder;
         /// <summary>
         /// The ReteEngine instance that is used to create the ReteBuilder and ultimately build the rule. This is passed in through the constructor.
         /// </summary>
@@ -143,6 +159,7 @@ namespace ReteEngine
         {
             _engine = engine;
             _builder = new ReteBuilder<TInitial>(engine, ruleName);
+            _groupBuilder = _builder.Group<object>(aggregateName);
         }
 
         /// <summary>
@@ -249,6 +266,31 @@ namespace ReteEngine
         }
 
         /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Where to add a join condition on a fact type.
+        /// </summary>
+        /// <typeparam name="T">The fact type the join condition evaluates.</typeparam>
+        /// <param name="joinCondition">A predicate invoked with the current <see cref="Token"/> and a fact of type <typeparamref name="T"/> to evaluate the join condition.</param>
+        /// <returns>The current <see cref="IAggregationBuilder"/> to continue building aggregations.</returns>
+        public IAggregationBuilder Where<T>(Func<Token, T, bool> joinCondition)
+        {
+            _groupBuilder.Where(joinCondition);
+            return this;
+        }
+
+        /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Group to start a new group of conditions for a fact type.
+        /// </summary>
+        /// <typeparam name="T">The fact type contained in the group.</typeparam>
+        /// <param name="name">The name to assign to the group.</param>
+        /// <returns>The current <see cref="IEvaluationBuilder"/> to continue building evaluations.</returns>
+        public IEvaluationBuilder Group<T>(string name)
+        {
+            _groupBuilder = _builder.Group<T>(name);
+            return this;
+        }
+
+
+        /// <summary>
         /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.StartWith to begin the rule with a provided alpha memory.
         /// </summary>
         /// <typeparam name="T">The fact type stored in the provided alpha memory.</typeparam>
@@ -343,6 +385,64 @@ namespace ReteEngine
             _builder.All(aggregateName, aggregatePredicate);
             return this;
         }
+
+        /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Sum to add an aggregate predicate that computes the sum of a numeric property 
+        /// across a collection of facts.
+        /// </summary>
+        /// <typeparam name="T">The fact type contained in the aggregate.</typeparam>
+        /// <param name="aggregatePredicate">A predicate that receives the aggregated <see cref="IEnumerable{T}"/> and returns <c>true</c> if the 
+        /// aggregate condition holds.</param>
+        /// <param name="asVariableName">The name to assign to the result of the aggregate computation.</param>
+        /// <returns>The current <see cref="IEvaluationBuilder"/> to continue building evaluations after the aggregate.</returns>
+        public IEvaluationBuilder Sum<T>(Func<T, decimal> aggregatePredicate, string asVariableName)
+        {
+            _groupBuilder.Sum<T>(aggregatePredicate, asVariableName);
+            return this;
+        }
+
+        /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Sum to add an aggregate predicate that computes the sum of a numeric property 
+        /// across a collection of facts.   
+        /// </summary>
+        /// <typeparam name="T">The fact type contained in the aggregate.</typeparam>
+        /// <param name="aggregatePredicate">A predicate that receives the aggregated <see cref="IEnumerable{T}"/> and returns <c>true</c> if the 
+        /// aggregate condition holds.</param>
+        /// <param name="asVariableName">The name to assign to the result of the aggregate computation.</param>
+        /// <returns>The current <see cref="IEvaluationBuilder"/> to continue building evaluations after the aggregate.</returns>
+        public IEvaluationBuilder Sum<T>(Func<T, int> aggregatePredicate, string asVariableName)
+        {
+            _groupBuilder.Sum<T>(aggregatePredicate, asVariableName);
+            return this;
+        }
+
+        /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Average to add an aggregate predicate that computes the average of a numeric property 
+        /// across a collection of facts.       
+        /// </summary>
+        /// <typeparam name="T">The fact type contained in the aggregate.</typeparam>
+        /// <param name="aggregatePredicate">A predicate that receives the aggregated <see cref="IEnumerable{T}"/> and returns <c>true</c> if the 
+        /// aggregate condition holds.</param>
+        /// <param name="asVariableName">The name to assign to the result of the aggregate computation.</param>
+        /// <returns>The current <see cref="IEvaluationBuilder"/> to continue building evaluations after the aggregate.</returns>
+        public IEvaluationBuilder Average<T>(Func<T, decimal> aggregatePredicate, string asVariableName)
+        {
+            _groupBuilder.Average<T>(aggregatePredicate, asVariableName);
+            return this;
+        }
+
+        /// <summary>
+        /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.Count to add an aggregate predicate that computes the count of a collection of facts.
+        /// </summary>
+        /// <typeparam name="T">The fact type contained in the aggregate.</typeparam>
+        /// <param name="asVariableName">The name to assign to the result of the aggregate computation.</param>
+        /// <returns>The current <see cref="IEvaluationBuilder"/> to continue building evaluations after the aggregate.</returns>
+        public IEvaluationBuilder Count<T>(string asVariableName)
+        {
+            _groupBuilder.Count<T>(asVariableName);
+            return this;
+        }
+
 
         /// <summary>
         /// A wrapper for <see cref="ReteBuilder<TInitial>"/>.And that adds a join condition for a named fact.

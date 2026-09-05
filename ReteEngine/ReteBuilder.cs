@@ -120,6 +120,39 @@ namespace ReteEngine
         }
 
         /// <summary>
+        /// Groups facts of type TRightFact into the token under the specified alias. This method creates a GroupBuilder that allows 
+        /// for further configuration of the grouping operation.
+        /// </summary>
+        /// <typeparam name="TRightFact">The type of fact to group.</typeparam>
+        /// <param name="alphaMemoryName">The name of the AlphaMemory containing the facts to group.</param>
+        /// <returns>The current <see cref="IGroupBuilder{TInitial}"/> to continue building the group.</returns>
+        public IGroupBuilder<TInitial> Group<TRightFact>(string alphaMemoryName)
+        {
+            // Mirroring your And<T> setup: get the alpha memory containing the facts we want to aggregate
+            var alpha = _engine.GetAlphaMemory<TRightFact>(alphaMemoryName);
+
+            // Pass 'this' so the GroupBuilder can update _lastNode and return fluent chaining to the user
+            return new GroupBuilder<TInitial,TRightFact>(this, alpha, alphaMemoryName);
+        }
+
+        // 
+        /// <summary>
+        /// Internal helper so the GroupBuilder can update the internal tracking state of your builder.
+        /// </summary>
+        /// <param name="node">The last node in the chain.</param>
+        internal void SetLastNode(IReteNode node)
+        {
+            _lastNode = node;
+        }
+
+        /// <summary>
+        /// This method is an internal helper that allows access to the last node in the current rule's chain of conditions.
+        /// </summary>
+        /// <returns>The last node in the current rule's chain of conditions, or null if no nodes have been added yet.</returns>
+        internal IReteNode? GetLastNode() => _lastNode;
+
+
+        /// <summary>
         /// The rule level priority determines the order in which rules are executed when multiple rules are eligible to fire. 
         /// Higher priority values indicate that a rule should be executed before those with lower priority values. By default, 
         /// the priority is set to 0, and rules with the same priority will be executed in the order they were added to the 
@@ -543,7 +576,6 @@ namespace ReteEngine
         /// <typeparam name="T">Element type of the collection.</typeparam>
         /// <param name="alias">Alias under which the collection is stored in the token.</param>
         /// <param name="aggregatePredicate">Predicate evaluated against the collection.</param>
-
         public ReteBuilder<TInitial> All<T>(string alias, Func<IEnumerable<T>, bool> aggregatePredicate)
         {
             // Create a wrapper predicate that can handle the fact as either an IEnumerable<T> or
